@@ -1,12 +1,8 @@
-import '/auth/firebase_auth/auth_util.dart';
-import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
-import '/flutter_flow/random_data_util.dart' as random_data;
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -39,6 +35,7 @@ class _EditeUserDataWidgetState extends State<EditeUserDataWidget> {
     _model.phoneNumberTextController ??= TextEditingController();
     _model.phoneNumberFocusNode ??= FocusNode();
     _model.phoneNumberFocusNode!.addListener(() => safeSetState(() {}));
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -95,8 +92,8 @@ class _EditeUserDataWidgetState extends State<EditeUserDataWidget> {
                   color: FlutterFlowTheme.of(context).primaryText,
                   size: 24.0,
                 ),
-                onPressed: () async {
-                  context.safePop();
+                onPressed: () {
+                  print('IconButton pressed ...');
                 },
               ),
             ),
@@ -135,213 +132,194 @@ class _EditeUserDataWidgetState extends State<EditeUserDataWidget> {
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   16.0, 12.0, 16.0, 0.0),
-                              child: InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  await currentUserReference!
-                                      .update(createUsersRecordData(
-                                    displayName: '',
-                                    photoUrl: '',
-                                    phoneNumber: '',
-                                  ));
-                                },
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    TextFormField(
-                                      controller: _model.fullNameTextController,
-                                      focusNode: _model.fullNameFocusNode,
-                                      autofocus: true,
-                                      textCapitalization:
-                                          TextCapitalization.words,
-                                      obscureText: false,
-                                      decoration: InputDecoration(
-                                        labelText: 'Nombre completo*',
-                                        labelStyle: FlutterFlowTheme.of(context)
-                                            .headlineMedium
-                                            .override(
-                                              fontFamily: 'Inter Tight',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              letterSpacing: 0.0,
-                                            ),
-                                        hintStyle: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .override(
-                                              fontFamily: 'Inter',
-                                              letterSpacing: 0.0,
-                                            ),
-                                        errorStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Inter',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .error,
-                                              fontSize: 12.0,
-                                              letterSpacing: 0.0,
-                                            ),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate,
-                                            width: 2.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            width: 2.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                        ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .error,
-                                            width: 2.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                        ),
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .error,
-                                            width: 2.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                        ),
-                                        filled: true,
-                                        fillColor: (_model.fullNameFocusNode
-                                                    ?.hasFocus ??
-                                                false)
-                                            ? FlutterFlowTheme.of(context)
-                                                .accent1
-                                            : FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                        contentPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                16.0, 20.0, 16.0, 20.0),
-                                      ),
-                                      style: FlutterFlowTheme.of(context)
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextFormField(
+                                    controller: _model.fullNameTextController,
+                                    focusNode: _model.fullNameFocusNode,
+                                    autofocus: true,
+                                    textCapitalization:
+                                        TextCapitalization.words,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      labelText: 'Nombre completo*',
+                                      labelStyle: FlutterFlowTheme.of(context)
                                           .headlineMedium
                                           .override(
                                             fontFamily: 'Inter Tight',
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
                                             letterSpacing: 0.0,
                                           ),
-                                      cursorColor:
-                                          FlutterFlowTheme.of(context).primary,
-                                      validator: _model
-                                          .fullNameTextControllerValidator
-                                          .asValidator(context),
-                                    ),
-                                    TextFormField(
-                                      controller:
-                                          _model.phoneNumberTextController,
-                                      focusNode: _model.phoneNumberFocusNode,
-                                      autofocus: true,
-                                      textCapitalization:
-                                          TextCapitalization.words,
-                                      obscureText: false,
-                                      decoration: InputDecoration(
-                                        labelText: 'Número de telefono',
-                                        labelStyle: FlutterFlowTheme.of(context)
-                                            .labelLarge
-                                            .override(
-                                              fontFamily: 'Inter',
-                                              letterSpacing: 0.0,
-                                            ),
-                                        hintStyle: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .override(
-                                              fontFamily: 'Inter',
-                                              letterSpacing: 0.0,
-                                            ),
-                                        errorStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Inter',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .error,
-                                              fontSize: 12.0,
-                                              letterSpacing: 0.0,
-                                            ),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate,
-                                            width: 2.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            width: 2.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                        ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .error,
-                                            width: 2.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                        ),
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .error,
-                                            width: 2.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                        ),
-                                        filled: true,
-                                        fillColor: (_model.phoneNumberFocusNode
-                                                    ?.hasFocus ??
-                                                false)
-                                            ? FlutterFlowTheme.of(context)
-                                                .accent1
-                                            : FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                        contentPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                16.0, 20.0, 16.0, 20.0),
-                                      ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyLarge
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
                                           .override(
                                             fontFamily: 'Inter',
                                             letterSpacing: 0.0,
                                           ),
-                                      cursorColor:
-                                          FlutterFlowTheme.of(context).primary,
-                                      validator: _model
-                                          .phoneNumberTextControllerValidator
-                                          .asValidator(context),
+                                      errorStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            fontSize: 12.0,
+                                            letterSpacing: 0.0,
+                                          ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .alternate,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
+                                      ),
+                                      filled: true,
+                                      fillColor: (_model.fullNameFocusNode
+                                                  ?.hasFocus ??
+                                              false)
+                                          ? FlutterFlowTheme.of(context).accent1
+                                          : FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                      contentPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              16.0, 20.0, 16.0, 20.0),
                                     ),
-                                  ]
-                                      .divide(SizedBox(height: 12.0))
-                                      .addToEnd(SizedBox(height: 32.0)),
-                                ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .headlineMedium
+                                        .override(
+                                          fontFamily: 'Inter Tight',
+                                          letterSpacing: 0.0,
+                                        ),
+                                    cursorColor:
+                                        FlutterFlowTheme.of(context).primary,
+                                    validator: _model
+                                        .fullNameTextControllerValidator
+                                        .asValidator(context),
+                                  ),
+                                  TextFormField(
+                                    controller:
+                                        _model.phoneNumberTextController,
+                                    focusNode: _model.phoneNumberFocusNode,
+                                    autofocus: true,
+                                    textCapitalization:
+                                        TextCapitalization.words,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      labelText: 'Número de telefono',
+                                      labelStyle: FlutterFlowTheme.of(context)
+                                          .labelLarge
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            letterSpacing: 0.0,
+                                          ),
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            letterSpacing: 0.0,
+                                          ),
+                                      errorStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            fontSize: 12.0,
+                                            letterSpacing: 0.0,
+                                          ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .alternate,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          width: 2.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
+                                      ),
+                                      filled: true,
+                                      fillColor: (_model.phoneNumberFocusNode
+                                                  ?.hasFocus ??
+                                              false)
+                                          ? FlutterFlowTheme.of(context).accent1
+                                          : FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                      contentPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              16.0, 20.0, 16.0, 20.0),
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          letterSpacing: 0.0,
+                                        ),
+                                    cursorColor:
+                                        FlutterFlowTheme.of(context).primary,
+                                    validator: _model
+                                        .phoneNumberTextControllerValidator
+                                        .asValidator(context),
+                                  ),
+                                ]
+                                    .divide(SizedBox(height: 12.0))
+                                    .addToEnd(SizedBox(height: 32.0)),
                               ),
                             ),
                           ),
@@ -359,19 +337,8 @@ class _EditeUserDataWidgetState extends State<EditeUserDataWidget> {
                     padding:
                         EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 12.0),
                     child: FFButtonWidget(
-                      onPressed: () async {
-                        await currentUserReference!
-                            .update(createUsersRecordData(
-                          displayName: _model.fullNameTextController.text,
-                          phoneNumber: _model.phoneNumberTextController.text,
-                          photoUrl: valueOrDefault<String>(
-                            random_data.randomImageUrl(
-                              200,
-                              200,
-                            ),
-                            'img',
-                          ),
-                        ));
+                      onPressed: () {
+                        print('Button pressed ...');
                       },
                       text: 'Actualizar datos',
                       options: FFButtonOptions(

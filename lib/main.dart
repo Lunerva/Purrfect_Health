@@ -39,6 +39,14 @@ class MyApp extends StatefulWidget {
       context.findAncestorStateOfType<_MyAppState>()!;
 }
 
+class MyAppScrollBehavior extends MaterialScrollBehavior {
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+      };
+}
+
 class _MyAppState extends State<MyApp> {
   ThemeMode _themeMode = FlutterFlowTheme.themeMode;
 
@@ -96,6 +104,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'PurrfectHealth',
+      scrollBehavior: MyAppScrollBehavior(),
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
@@ -141,10 +150,11 @@ class _NavBarPageState extends State<NavBarPage> {
   @override
   Widget build(BuildContext context) {
     final tabs = {
+      'ListaMascotas': ListaMascotasWidget(),
+      'ListaCitas': ListaCitasWidget(),
       'HomePage': HomePageWidget(),
       'ProfileEdit': ProfileEditWidget(),
-      'HealthMenu': HealthMenuWidget(),
-      'PRUEBAPARAUPLOADFILES': PruebaparauploadfilesWidget(),
+      'ListNotifications': ListNotificationsWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
@@ -179,14 +189,14 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.home_outlined,
+                  Icons.pets,
                   color: currentIndex == 0
                       ? FlutterFlowTheme.of(context).primary
                       : FlutterFlowTheme.of(context).secondaryText,
                   size: 24.0,
                 ),
                 Text(
-                  'Home',
+                  'Mascotas',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 0
@@ -203,14 +213,14 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.person,
+                  Icons.calendar_today,
                   color: currentIndex == 1
                       ? FlutterFlowTheme.of(context).primary
                       : FlutterFlowTheme.of(context).secondaryText,
                   size: 24.0,
                 ),
                 Text(
-                  'User',
+                  'Citas',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 1
@@ -227,14 +237,14 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.health_and_safety_sharp,
+                  Icons.home_outlined,
                   color: currentIndex == 2
                       ? FlutterFlowTheme.of(context).primary
                       : FlutterFlowTheme.of(context).secondaryText,
                   size: 24.0,
                 ),
                 Text(
-                  'Health',
+                  'Principal',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 2
@@ -258,10 +268,36 @@ class _NavBarPageState extends State<NavBarPage> {
                   size: 24.0,
                 ),
                 Text(
-                  'User',
+                  'Perfil',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 3
+                        ? FlutterFlowTheme.of(context).primary
+                        : FlutterFlowTheme.of(context).secondaryText,
+                    fontSize: 11.0,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          FloatingNavbarItem(
+            customWidget: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  currentIndex == 4
+                      ? Icons.notifications_rounded
+                      : Icons.notifications_none_rounded,
+                  color: currentIndex == 4
+                      ? FlutterFlowTheme.of(context).primary
+                      : FlutterFlowTheme.of(context).secondaryText,
+                  size: currentIndex == 4 ? 32.0 : 24.0,
+                ),
+                Text(
+                  'Notis',
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: currentIndex == 4
                         ? FlutterFlowTheme.of(context).primary
                         : FlutterFlowTheme.of(context).secondaryText,
                     fontSize: 11.0,

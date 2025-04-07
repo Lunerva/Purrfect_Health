@@ -105,16 +105,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => AuthenWidget(),
         ),
         FFRoute(
-          name: CreatePatientWidget.routeName,
-          path: CreatePatientWidget.routePath,
-          requireAuth: true,
-          builder: (context, params) => CreatePatientWidget(),
-        ),
-        FFRoute(
           name: ListNotificationsWidget.routeName,
           path: ListNotificationsWidget.routePath,
           requireAuth: true,
-          builder: (context, params) => ListNotificationsWidget(),
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'ListNotifications')
+              : ListNotificationsWidget(),
         ),
         FFRoute(
           name: ProfileEditWidget.routeName,
@@ -123,11 +119,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => params.isEmpty
               ? NavBarPage(initialPage: 'ProfileEdit')
               : ProfileEditWidget(),
-        ),
-        FFRoute(
-          name: ViewRecipesWidget.routeName,
-          path: ViewRecipesWidget.routePath,
-          builder: (context, params) => ViewRecipesWidget(),
         ),
         FFRoute(
           name: ModificarMascotaWidget.routeName,
@@ -141,25 +132,30 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => EditeUserDataWidget(),
         ),
         FFRoute(
-          name: CreateCartillaWidget.routeName,
-          path: CreateCartillaWidget.routePath,
+          name: CrearCitasWidget.routeName,
+          path: CrearCitasWidget.routePath,
           requireAuth: true,
-          builder: (context, params) => CreateCartillaWidget(),
+          builder: (context, params) => CrearCitasWidget(),
         ),
         FFRoute(
-          name: HealthMenuWidget.routeName,
-          path: HealthMenuWidget.routePath,
+          name: ListaCitasWidget.routeName,
+          path: ListaCitasWidget.routePath,
           builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'HealthMenu')
-              : HealthMenuWidget(),
+              ? NavBarPage(initialPage: 'ListaCitas')
+              : ListaCitasWidget(),
         ),
         FFRoute(
-          name: PruebaparauploadfilesWidget.routeName,
-          path: PruebaparauploadfilesWidget.routePath,
-          requireAuth: true,
+          name: ListaMascotasWidget.routeName,
+          path: ListaMascotasWidget.routePath,
           builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'PRUEBAPARAUPLOADFILES')
-              : PruebaparauploadfilesWidget(),
+              ? NavBarPage(initialPage: 'ListaMascotas')
+              : ListaMascotasWidget(),
+        ),
+        FFRoute(
+          name: CrearMascotasWidget.routeName,
+          path: CrearMascotasWidget.routePath,
+          requireAuth: true,
+          builder: (context, params) => CrearMascotasWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

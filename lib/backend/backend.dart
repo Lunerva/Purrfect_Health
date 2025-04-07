@@ -6,8 +6,11 @@ import '../flutter_flow/flutter_flow_util.dart';
 import 'schema/util/firestore_util.dart';
 
 import 'schema/users_record.dart';
-import 'schema/cartilla_vacunacion_record.dart';
+import 'schema/mascotas_record.dart';
 import 'schema/historial_medico_record.dart';
+import 'schema/vacunas_record.dart';
+import 'schema/citas_record.dart';
+import 'schema/recordatorios_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart' hide Order;
@@ -17,8 +20,11 @@ export 'schema/util/firestore_util.dart';
 export 'schema/util/schema_util.dart';
 
 export 'schema/users_record.dart';
-export 'schema/cartilla_vacunacion_record.dart';
+export 'schema/mascotas_record.dart';
 export 'schema/historial_medico_record.dart';
+export 'schema/vacunas_record.dart';
+export 'schema/citas_record.dart';
+export 'schema/recordatorios_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Future<int> queryUsersRecordCount({
@@ -57,38 +63,41 @@ Future<List<UsersRecord>> queryUsersRecordOnce({
       singleRecord: singleRecord,
     );
 
-/// Functions to query CartillaVacunacionRecords (as a Stream and as a Future).
-Future<int> queryCartillaVacunacionRecordCount({
+/// Functions to query MascotasRecords (as a Stream and as a Future).
+Future<int> queryMascotasRecordCount({
+  DocumentReference? parent,
   Query Function(Query)? queryBuilder,
   int limit = -1,
 }) =>
     queryCollectionCount(
-      CartillaVacunacionRecord.collection,
+      MascotasRecord.collection(parent),
       queryBuilder: queryBuilder,
       limit: limit,
     );
 
-Stream<List<CartillaVacunacionRecord>> queryCartillaVacunacionRecord({
+Stream<List<MascotasRecord>> queryMascotasRecord({
+  DocumentReference? parent,
   Query Function(Query)? queryBuilder,
   int limit = -1,
   bool singleRecord = false,
 }) =>
     queryCollection(
-      CartillaVacunacionRecord.collection,
-      CartillaVacunacionRecord.fromSnapshot,
+      MascotasRecord.collection(parent),
+      MascotasRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
     );
 
-Future<List<CartillaVacunacionRecord>> queryCartillaVacunacionRecordOnce({
+Future<List<MascotasRecord>> queryMascotasRecordOnce({
+  DocumentReference? parent,
   Query Function(Query)? queryBuilder,
   int limit = -1,
   bool singleRecord = false,
 }) =>
     queryCollectionOnce(
-      CartillaVacunacionRecord.collection,
-      CartillaVacunacionRecord.fromSnapshot,
+      MascotasRecord.collection(parent),
+      MascotasRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -96,22 +105,24 @@ Future<List<CartillaVacunacionRecord>> queryCartillaVacunacionRecordOnce({
 
 /// Functions to query HistorialMedicoRecords (as a Stream and as a Future).
 Future<int> queryHistorialMedicoRecordCount({
+  DocumentReference? parent,
   Query Function(Query)? queryBuilder,
   int limit = -1,
 }) =>
     queryCollectionCount(
-      HistorialMedicoRecord.collection,
+      HistorialMedicoRecord.collection(parent),
       queryBuilder: queryBuilder,
       limit: limit,
     );
 
 Stream<List<HistorialMedicoRecord>> queryHistorialMedicoRecord({
+  DocumentReference? parent,
   Query Function(Query)? queryBuilder,
   int limit = -1,
   bool singleRecord = false,
 }) =>
     queryCollection(
-      HistorialMedicoRecord.collection,
+      HistorialMedicoRecord.collection(parent),
       HistorialMedicoRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
@@ -119,13 +130,134 @@ Stream<List<HistorialMedicoRecord>> queryHistorialMedicoRecord({
     );
 
 Future<List<HistorialMedicoRecord>> queryHistorialMedicoRecordOnce({
+  DocumentReference? parent,
   Query Function(Query)? queryBuilder,
   int limit = -1,
   bool singleRecord = false,
 }) =>
     queryCollectionOnce(
-      HistorialMedicoRecord.collection,
+      HistorialMedicoRecord.collection(parent),
       HistorialMedicoRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query VacunasRecords (as a Stream and as a Future).
+Future<int> queryVacunasRecordCount({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      VacunasRecord.collection(parent),
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<VacunasRecord>> queryVacunasRecord({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      VacunasRecord.collection(parent),
+      VacunasRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<VacunasRecord>> queryVacunasRecordOnce({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      VacunasRecord.collection(parent),
+      VacunasRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query CitasRecords (as a Stream and as a Future).
+Future<int> queryCitasRecordCount({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      CitasRecord.collection(parent),
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<CitasRecord>> queryCitasRecord({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      CitasRecord.collection(parent),
+      CitasRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<CitasRecord>> queryCitasRecordOnce({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      CitasRecord.collection(parent),
+      CitasRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query RecordatoriosRecords (as a Stream and as a Future).
+Future<int> queryRecordatoriosRecordCount({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      RecordatoriosRecord.collection(parent),
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<RecordatoriosRecord>> queryRecordatoriosRecord({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      RecordatoriosRecord.collection(parent),
+      RecordatoriosRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<RecordatoriosRecord>> queryRecordatoriosRecordOnce({
+  DocumentReference? parent,
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      RecordatoriosRecord.collection(parent),
+      RecordatoriosRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,

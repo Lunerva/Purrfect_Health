@@ -16,41 +16,54 @@ class HistorialMedicoRecord extends FirestoreRecord {
     _initializeFields();
   }
 
-  // "mascotaID" field.
-  String? _mascotaID;
-  String get mascotaID => _mascotaID ?? '';
+  // "Tipo" field.
+  String? _tipo;
+  String get tipo => _tipo ?? '';
+  bool hasTipo() => _tipo != null;
+
+  // "Descripcion" field.
+  String? _descripcion;
+  String get descripcion => _descripcion ?? '';
+  bool hasDescripcion() => _descripcion != null;
+
+  // "Fecha" field.
+  DateTime? _fecha;
+  DateTime? get fecha => _fecha;
+  bool hasFecha() => _fecha != null;
+
+  // "Archivo" field.
+  String? _archivo;
+  String get archivo => _archivo ?? '';
+  bool hasArchivo() => _archivo != null;
+
+  // "Veterinario" field.
+  String? _veterinario;
+  String get veterinario => _veterinario ?? '';
+  bool hasVeterinario() => _veterinario != null;
+
+  // "MascotaID" field.
+  DocumentReference? _mascotaID;
+  DocumentReference? get mascotaID => _mascotaID;
   bool hasMascotaID() => _mascotaID != null;
 
-  // "diagnostico" field.
-  String? _diagnostico;
-  String get diagnostico => _diagnostico ?? '';
-  bool hasDiagnostico() => _diagnostico != null;
-
-  // "tratamiento" field.
-  String? _tratamiento;
-  String get tratamiento => _tratamiento ?? '';
-  bool hasTratamiento() => _tratamiento != null;
-
-  // "veterinarioID" field.
-  String? _veterinarioID;
-  String get veterinarioID => _veterinarioID ?? '';
-  bool hasVeterinarioID() => _veterinarioID != null;
-
-  // "fechaRev" field.
-  DateTime? _fechaRev;
-  DateTime? get fechaRev => _fechaRev;
-  bool hasFechaRev() => _fechaRev != null;
+  DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
-    _mascotaID = snapshotData['mascotaID'] as String?;
-    _diagnostico = snapshotData['diagnostico'] as String?;
-    _tratamiento = snapshotData['tratamiento'] as String?;
-    _veterinarioID = snapshotData['veterinarioID'] as String?;
-    _fechaRev = snapshotData['fechaRev'] as DateTime?;
+    _tipo = snapshotData['Tipo'] as String?;
+    _descripcion = snapshotData['Descripcion'] as String?;
+    _fecha = snapshotData['Fecha'] as DateTime?;
+    _archivo = snapshotData['Archivo'] as String?;
+    _veterinario = snapshotData['Veterinario'] as String?;
+    _mascotaID = snapshotData['MascotaID'] as DocumentReference?;
   }
 
-  static CollectionReference get collection =>
-      FirebaseFirestore.instance.collection('historialMedico');
+  static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
+      parent != null
+          ? parent.collection('historialMedico')
+          : FirebaseFirestore.instance.collectionGroup('historialMedico');
+
+  static DocumentReference createDoc(DocumentReference parent, {String? id}) =>
+      parent.collection('historialMedico').doc(id);
 
   static Stream<HistorialMedicoRecord> getDocument(DocumentReference ref) =>
       ref.snapshots().map((s) => HistorialMedicoRecord.fromSnapshot(s));
@@ -84,19 +97,21 @@ class HistorialMedicoRecord extends FirestoreRecord {
 }
 
 Map<String, dynamic> createHistorialMedicoRecordData({
-  String? mascotaID,
-  String? diagnostico,
-  String? tratamiento,
-  String? veterinarioID,
-  DateTime? fechaRev,
+  String? tipo,
+  String? descripcion,
+  DateTime? fecha,
+  String? archivo,
+  String? veterinario,
+  DocumentReference? mascotaID,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
-      'mascotaID': mascotaID,
-      'diagnostico': diagnostico,
-      'tratamiento': tratamiento,
-      'veterinarioID': veterinarioID,
-      'fechaRev': fechaRev,
+      'Tipo': tipo,
+      'Descripcion': descripcion,
+      'Fecha': fecha,
+      'Archivo': archivo,
+      'Veterinario': veterinario,
+      'MascotaID': mascotaID,
     }.withoutNulls,
   );
 
@@ -109,20 +124,22 @@ class HistorialMedicoRecordDocumentEquality
 
   @override
   bool equals(HistorialMedicoRecord? e1, HistorialMedicoRecord? e2) {
-    return e1?.mascotaID == e2?.mascotaID &&
-        e1?.diagnostico == e2?.diagnostico &&
-        e1?.tratamiento == e2?.tratamiento &&
-        e1?.veterinarioID == e2?.veterinarioID &&
-        e1?.fechaRev == e2?.fechaRev;
+    return e1?.tipo == e2?.tipo &&
+        e1?.descripcion == e2?.descripcion &&
+        e1?.fecha == e2?.fecha &&
+        e1?.archivo == e2?.archivo &&
+        e1?.veterinario == e2?.veterinario &&
+        e1?.mascotaID == e2?.mascotaID;
   }
 
   @override
   int hash(HistorialMedicoRecord? e) => const ListEquality().hash([
-        e?.mascotaID,
-        e?.diagnostico,
-        e?.tratamiento,
-        e?.veterinarioID,
-        e?.fechaRev
+        e?.tipo,
+        e?.descripcion,
+        e?.fecha,
+        e?.archivo,
+        e?.veterinario,
+        e?.mascotaID
       ]);
 
   @override
