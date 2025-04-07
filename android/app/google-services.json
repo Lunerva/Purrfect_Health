@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "352121559466",
+    "project_id": "purrfecthealth-a8216",
+    "storage_bucket": "purrfecthealth-a8216.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:352121559466:android:73bc951b2e357b512573d3",
+        "android_client_info": {
+          "package_name": "com.codesol.PurHealth"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOqx2_78ZuWGGQsKTPLNwO46XvzsMDFPk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
