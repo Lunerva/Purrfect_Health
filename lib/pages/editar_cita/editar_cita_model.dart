@@ -7,15 +7,14 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'dart:ui';
-import '/index.dart';
-import 'crear_citas_widget.dart' show CrearCitasWidget;
+import 'editar_cita_widget.dart' show EditarCitaWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class CrearCitasModel extends FlutterFlowModel<CrearCitasWidget> {
+class EditarCitaModel extends FlutterFlowModel<EditarCitaWidget> {
   ///  State fields for stateful widgets in this page.
 
   final formKey = GlobalKey<FormState>();

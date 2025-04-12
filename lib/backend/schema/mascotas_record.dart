@@ -41,6 +41,11 @@ class MascotasRecord extends FirestoreRecord {
   String get sexo => _sexo ?? '';
   bool hasSexo() => _sexo != null;
 
+  // "IDDue" field.
+  List<DocumentReference>? _iDDue;
+  List<DocumentReference> get iDDue => _iDDue ?? const [];
+  bool hasIDDue() => _iDDue != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -49,6 +54,7 @@ class MascotasRecord extends FirestoreRecord {
     _raza = snapshotData['Raza'] as String?;
     _fechaNacimiento = snapshotData['FechaNacimiento'] as DateTime?;
     _sexo = snapshotData['Sexo'] as String?;
+    _iDDue = getDataList(snapshotData['IDDue']);
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -115,16 +121,18 @@ class MascotasRecordDocumentEquality implements Equality<MascotasRecord> {
 
   @override
   bool equals(MascotasRecord? e1, MascotasRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.nombre == e2?.nombre &&
         e1?.especie == e2?.especie &&
         e1?.raza == e2?.raza &&
         e1?.fechaNacimiento == e2?.fechaNacimiento &&
-        e1?.sexo == e2?.sexo;
+        e1?.sexo == e2?.sexo &&
+        listEquality.equals(e1?.iDDue, e2?.iDDue);
   }
 
   @override
-  int hash(MascotasRecord? e) => const ListEquality()
-      .hash([e?.nombre, e?.especie, e?.raza, e?.fechaNacimiento, e?.sexo]);
+  int hash(MascotasRecord? e) => const ListEquality().hash(
+      [e?.nombre, e?.especie, e?.raza, e?.fechaNacimiento, e?.sexo, e?.iDDue]);
 
   @override
   bool isValidKey(Object? o) => o is MascotasRecord;

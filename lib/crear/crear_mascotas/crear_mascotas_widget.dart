@@ -7,9 +7,9 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import '/index.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 import 'crear_mascotas_model.dart';
 export 'crear_mascotas_model.dart';
@@ -43,10 +43,6 @@ class _CrearMascotasWidgetState extends State<CrearMascotasWidget> {
     _model.razaTextController ??= TextEditingController();
     _model.razaFocusNode ??= FocusNode();
     _model.razaFocusNode!.addListener(() => safeSetState(() {}));
-    _model.dateOfBirthTextController ??=
-        TextEditingController(text: dateTimeFormat("yMd", getCurrentTimestamp));
-    _model.dateOfBirthFocusNode ??= FocusNode();
-    _model.dateOfBirthFocusNode!.addListener(() => safeSetState(() {}));
     _model.sexoTextController ??= TextEditingController();
     _model.sexoFocusNode ??= FocusNode();
     _model.sexoFocusNode!.addListener(() => safeSetState(() {}));
@@ -422,102 +418,139 @@ class _CrearMascotasWidgetState extends State<CrearMascotasWidget> {
                                           .asValidator(context),
                                     ),
                                   ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 10.0),
-                                    child: TextFormField(
-                                      controller:
-                                          _model.dateOfBirthTextController,
-                                      focusNode: _model.dateOfBirthFocusNode,
-                                      autofocus: true,
-                                      textCapitalization:
-                                          TextCapitalization.words,
-                                      obscureText: false,
-                                      decoration: InputDecoration(
-                                        labelText: 'Fecha de nacimiento',
-                                        labelStyle: FlutterFlowTheme.of(context)
-                                            .labelLarge
-                                            .override(
-                                              fontFamily: 'Inter',
-                                              letterSpacing: 0.0,
-                                            ),
-                                        hintStyle: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .override(
-                                              fontFamily: 'Inter',
-                                              letterSpacing: 0.0,
-                                            ),
-                                        errorStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Inter',
-                                              color:
+                                  FFButtonWidget(
+                                    onPressed: () async {
+                                      final _datePickedDate =
+                                          await showDatePicker(
+                                        context: context,
+                                        initialDate: getCurrentTimestamp,
+                                        firstDate: getCurrentTimestamp,
+                                        lastDate: DateTime(2050),
+                                        builder: (context, child) {
+                                          return wrapInMaterialDatePickerTheme(
+                                            context,
+                                            child!,
+                                            headerBackgroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primary,
+                                            headerForegroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .info,
+                                            headerTextStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .headlineLarge
+                                                    .override(
+                                                      fontFamily: 'Inter Tight',
+                                                      fontSize: 32.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
+                                            pickerBackgroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondaryBackground,
+                                            pickerForegroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primaryText,
+                                            selectedDateTimeBackgroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primary,
+                                            selectedDateTimeForegroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .info,
+                                            actionButtonForegroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primaryText,
+                                            iconSize: 24.0,
+                                          );
+                                        },
+                                      );
+
+                                      TimeOfDay? _datePickedTime;
+                                      if (_datePickedDate != null) {
+                                        _datePickedTime = await showTimePicker(
+                                          context: context,
+                                          initialTime: TimeOfDay.fromDateTime(
+                                              getCurrentTimestamp),
+                                          builder: (context, child) {
+                                            return wrapInMaterialTimePickerTheme(
+                                              context,
+                                              child!,
+                                              headerBackgroundColor:
                                                   FlutterFlowTheme.of(context)
-                                                      .error,
-                                              fontSize: 12.0,
-                                              letterSpacing: 0.0,
-                                            ),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate,
-                                            width: 2.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            width: 2.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                        ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .error,
-                                            width: 2.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                        ),
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .error,
-                                            width: 2.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                        ),
-                                        filled: true,
-                                        fillColor: (_model.dateOfBirthFocusNode
-                                                    ?.hasFocus ??
-                                                false)
-                                            ? FlutterFlowTheme.of(context)
-                                                .accent1
-                                            : FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                        contentPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                16.0, 20.0, 16.0, 20.0),
-                                      ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyLarge
+                                                      .primary,
+                                              headerForegroundColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .info,
+                                              headerTextStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .headlineLarge
+                                                      .override(
+                                                        fontFamily:
+                                                            'Inter Tight',
+                                                        fontSize: 32.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
+                                              pickerBackgroundColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                              pickerForegroundColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              selectedDateTimeBackgroundColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              selectedDateTimeForegroundColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .info,
+                                              actionButtonForegroundColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              iconSize: 24.0,
+                                            );
+                                          },
+                                        );
+                                      }
+
+                                      if (_datePickedDate != null &&
+                                          _datePickedTime != null) {
+                                        safeSetState(() {
+                                          _model.datePicked = DateTime(
+                                            _datePickedDate.year,
+                                            _datePickedDate.month,
+                                            _datePickedDate.day,
+                                            _datePickedTime!.hour,
+                                            _datePickedTime.minute,
+                                          );
+                                        });
+                                      } else if (_model.datePicked != null) {
+                                        safeSetState(() {
+                                          _model.datePicked =
+                                              getCurrentTimestamp;
+                                        });
+                                      }
+                                    },
+                                    text: 'Fecha Nacimiento',
+                                    options: FFButtonOptions(
+                                      height: 40.0,
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          16.0, 0.0, 16.0, 0.0),
+                                      iconPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 0.0, 0.0, 0.0),
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
                                           .override(
-                                            fontFamily: 'Inter',
+                                            fontFamily: 'Inter Tight',
+                                            color: Colors.white,
                                             letterSpacing: 0.0,
                                           ),
-                                      keyboardType: TextInputType.datetime,
-                                      cursorColor:
-                                          FlutterFlowTheme.of(context).primary,
-                                      validator: _model
-                                          .dateOfBirthTextControllerValidator
-                                          .asValidator(context),
-                                      inputFormatters: [_model.dateOfBirthMask],
+                                      elevation: 0.0,
+                                      borderRadius: BorderRadius.circular(8.0),
                                     ),
                                   ),
                                   Padding(
@@ -641,7 +674,7 @@ class _CrearMascotasWidgetState extends State<CrearMascotasWidget> {
                           nombre: _model.nombreTextController.text,
                           especie: _model.especieTextController.text,
                           raza: _model.razaTextController.text,
-                          fechaNacimiento: getCurrentTimestamp,
+                          fechaNacimiento: _model.datePicked,
                           sexo: _model.sexoTextController.text,
                         ));
                       },

@@ -7,42 +7,49 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'dart:ui';
-import '/index.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'crear_citas_model.dart';
-export 'crear_citas_model.dart';
+import 'editar_cita_model.dart';
+export 'editar_cita_model.dart';
 
-class CrearCitasWidget extends StatefulWidget {
-  const CrearCitasWidget({super.key});
+class EditarCitaWidget extends StatefulWidget {
+  const EditarCitaWidget({
+    super.key,
+    required this.cita,
+  });
 
-  static String routeName = 'CrearCitas';
-  static String routePath = '/crearCitas';
+  final CitasRecord? cita;
+
+  static String routeName = 'EditarCita';
+  static String routePath = '/editarCita';
 
   @override
-  State<CrearCitasWidget> createState() => _CrearCitasWidgetState();
+  State<EditarCitaWidget> createState() => _EditarCitaWidgetState();
 }
 
-class _CrearCitasWidgetState extends State<CrearCitasWidget> {
-  late CrearCitasModel _model;
+class _EditarCitaWidgetState extends State<EditarCitaWidget> {
+  late EditarCitaModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => CrearCitasModel());
+    _model = createModel(context, () => EditarCitaModel());
 
-    _model.fechaTextController ??= TextEditingController();
+    _model.fechaTextController ??=
+        TextEditingController(text: widget!.cita?.lugar);
     _model.fechaFocusNode ??= FocusNode();
     _model.fechaFocusNode!.addListener(() => safeSetState(() {}));
-    _model.horaTextController ??= TextEditingController();
+    _model.horaTextController ??=
+        TextEditingController(text: widget!.cita?.hora?.toString());
     _model.horaFocusNode ??= FocusNode();
     _model.horaFocusNode!.addListener(() => safeSetState(() {}));
-    _model.motivoTextController ??= TextEditingController();
+    _model.motivoTextController ??=
+        TextEditingController(text: widget!.cita?.motivo);
     _model.motivoFocusNode ??= FocusNode();
     _model.motivoFocusNode!.addListener(() => safeSetState(() {}));
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
@@ -64,7 +71,7 @@ class _CrearCitasWidgetState extends State<CrearCitasWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
@@ -79,11 +86,11 @@ class _CrearCitasWidgetState extends State<CrearCitasWidget> {
               size: 30.0,
             ),
             onPressed: () async {
-              context.pushNamed(ListaCitasWidget.routeName);
+              context.pop();
             },
           ),
           title: Text(
-            'Registrar cita',
+            'Page Title',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Inter Tight',
                   color: Colors.white,
@@ -97,34 +104,22 @@ class _CrearCitasWidgetState extends State<CrearCitasWidget> {
         ),
         body: SafeArea(
           top: true,
-          child: Form(
-            key: _model.formKey,
-            autovalidateMode: AutovalidateMode.disabled,
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Align(
-                          alignment: AlignmentDirectional(0.0, -1.0),
-                          child: Container(
-                            height: 500.0,
-                            constraints: BoxConstraints(
-                              maxWidth: 770.0,
-                            ),
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [Color(0xFFFFF2CD), Colors.white],
-                                stops: [0.0, 1.0],
-                                begin: AlignmentDirectional(0.0, -1.0),
-                                end: AlignmentDirectional(0, 1.0),
-                              ),
-                            ),
-                            child: Padding(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Form(
+                key: _model.formKey,
+                autovalidateMode: AutovalidateMode.disabled,
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   16.0, 12.0, 16.0, 0.0),
                               child: Column(
@@ -618,101 +613,127 @@ class _CrearCitasWidgetState extends State<CrearCitasWidget> {
                                     .addToEnd(SizedBox(height: 32.0)),
                               ),
                             ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  constraints: BoxConstraints(
-                    maxWidth: 770.0,
-                  ),
-                  decoration: BoxDecoration(),
-                  child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 30.0),
-                    child: StreamBuilder<List<MascotasRecord>>(
-                      stream: queryMascotasRecord(
-                        singleRecord: true,
-                      ),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 50.0,
-                              height: 50.0,
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  FlutterFlowTheme.of(context).primary,
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 12.0, 16.0, 30.0),
+                              child: StreamBuilder<List<MascotasRecord>>(
+                                stream: queryMascotasRecord(
+                                  singleRecord: true,
+                                ),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50.0,
+                                        height: 50.0,
+                                        child: CircularProgressIndicator(
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                            FlutterFlowTheme.of(context)
+                                                .primary,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  List<MascotasRecord>
+                                      buttonMascotasRecordList = snapshot.data!;
+                                  // Return an empty Container when the item does not exist.
+                                  if (snapshot.data!.isEmpty) {
+                                    return Container();
+                                  }
+                                  final buttonMascotasRecord =
+                                      buttonMascotasRecordList.isNotEmpty
+                                          ? buttonMascotasRecordList.first
+                                          : null;
+
+                                  return FFButtonWidget(
+                                    onPressed: () async {
+                                      await widget!.cita!.reference
+                                          .update(createCitasRecordData(
+                                        fecha: _model.datePicked,
+                                        hora: int.tryParse(
+                                            _model.horaTextController.text),
+                                        motivo:
+                                            _model.motivoTextController.text,
+                                        lugar: _model.fechaTextController.text,
+                                        mascotaID:
+                                            buttonMascotasRecord?.reference,
+                                      ));
+                                    },
+                                    text: 'Actualizar cita',
+                                    options: FFButtonOptions(
+                                      width: double.infinity,
+                                      height: 48.0,
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          24.0, 0.0, 24.0, 0.0),
+                                      iconPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 0.0, 0.0, 0.0),
+                                      color: Color(0xC500FFB7),
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .override(
+                                        fontFamily: 'Inter Tight',
+                                        color: Colors.white,
+                                        fontSize: 20.0,
+                                        letterSpacing: 0.0,
+                                        shadows: [
+                                          Shadow(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            offset: Offset(2.0, 2.0),
+                                            blurRadius: 2.0,
+                                          )
+                                        ],
+                                      ),
+                                      elevation: 3.0,
+                                      borderSide: BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            Align(
+                              alignment: AlignmentDirectional(0.0, -1.0),
+                              child: Container(
+                                height: 500.0,
+                                constraints: BoxConstraints(
+                                  maxWidth: 770.0,
+                                ),
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [Color(0xFFFFF2CD), Colors.white],
+                                    stops: [0.0, 1.0],
+                                    begin: AlignmentDirectional(0.0, -1.0),
+                                    end: AlignmentDirectional(0, 1.0),
+                                  ),
                                 ),
                               ),
                             ),
-                          );
-                        }
-                        List<MascotasRecord> buttonMascotasRecordList =
-                            snapshot.data!;
-                        // Return an empty Container when the item does not exist.
-                        if (snapshot.data!.isEmpty) {
-                          return Container();
-                        }
-                        final buttonMascotasRecord =
-                            buttonMascotasRecordList.isNotEmpty
-                                ? buttonMascotasRecordList.first
-                                : null;
-
-                        return FFButtonWidget(
-                          onPressed: () async {
-                            await CitasRecord.createDoc(currentUserReference!)
-                                .set(createCitasRecordData(
-                              fecha: _model.datePicked,
-                              hora:
-                                  int.tryParse(_model.horaTextController.text),
-                              motivo: _model.motivoTextController.text,
-                              lugar: _model.fechaTextController.text,
-                              mascotaID: buttonMascotasRecord?.reference,
-                            ));
-                          },
-                          text: 'Registrar cita',
-                          options: FFButtonOptions(
-                            width: double.infinity,
-                            height: 48.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                24.0, 0.0, 24.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            color: Color(0xC500FFB7),
-                            textStyle: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .override(
-                              fontFamily: 'Inter Tight',
-                              color: Colors.white,
-                              fontSize: 20.0,
-                              letterSpacing: 0.0,
-                              shadows: [
-                                Shadow(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
-                                  offset: Offset(2.0, 2.0),
-                                  blurRadius: 2.0,
-                                )
-                              ],
-                            ),
-                            elevation: 3.0,
-                            borderSide: BorderSide(
-                              color: Colors.transparent,
-                              width: 1.0,
-                            ),
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        );
-                      },
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
+                    Container(
+                      constraints: BoxConstraints(
+                        maxWidth: 770.0,
+                      ),
+                      decoration: BoxDecoration(),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [],
+              ),
+            ],
           ),
         ),
       ),

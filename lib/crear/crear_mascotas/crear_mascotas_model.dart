@@ -8,9 +8,9 @@ import 'dart:ui';
 import '/index.dart';
 import 'crear_mascotas_widget.dart' show CrearMascotasWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 
 class CrearMascotasModel extends FlutterFlowModel<CrearMascotasWidget> {
@@ -37,20 +37,7 @@ class CrearMascotasModel extends FlutterFlowModel<CrearMascotasWidget> {
   FocusNode? razaFocusNode;
   TextEditingController? razaTextController;
   String? Function(BuildContext, String?)? razaTextControllerValidator;
-  // State field(s) for dateOfBirth widget.
-  FocusNode? dateOfBirthFocusNode;
-  TextEditingController? dateOfBirthTextController;
-  final dateOfBirthMask = MaskTextInputFormatter(mask: '##/##/####');
-  String? Function(BuildContext, String?)? dateOfBirthTextControllerValidator;
-  String? _dateOfBirthTextControllerValidator(
-      BuildContext context, String? val) {
-    if (val == null || val.isEmpty) {
-      return 'Please enter the date of birth of the patient.';
-    }
-
-    return null;
-  }
-
+  DateTime? datePicked;
   // State field(s) for sexo widget.
   FocusNode? sexoFocusNode;
   TextEditingController? sexoTextController;
@@ -59,7 +46,6 @@ class CrearMascotasModel extends FlutterFlowModel<CrearMascotasWidget> {
   @override
   void initState(BuildContext context) {
     especieTextControllerValidator = _especieTextControllerValidator;
-    dateOfBirthTextControllerValidator = _dateOfBirthTextControllerValidator;
   }
 
   @override
@@ -72,9 +58,6 @@ class CrearMascotasModel extends FlutterFlowModel<CrearMascotasWidget> {
 
     razaFocusNode?.dispose();
     razaTextController?.dispose();
-
-    dateOfBirthFocusNode?.dispose();
-    dateOfBirthTextController?.dispose();
 
     sexoFocusNode?.dispose();
     sexoTextController?.dispose();

@@ -1,5 +1,4 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -91,7 +90,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     : null;
 
                 return Text(
-                  currentUserDisplayName,
+                  valueOrDefault<String>(
+                    currentUserDisplayName,
+                    '¡Bienvenido de vuelta [User]!',
+                  ),
                   style: FlutterFlowTheme.of(context).titleLarge.override(
                         fontFamily: 'Inter Tight',
                         letterSpacing: 0.0,
@@ -120,125 +122,108 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                FutureBuilder<ApiCallResponse>(
-                  future: GetMascotasCall.call(
-                    body: '--',
-                  ),
-                  builder: (context, snapshot) {
-                    // Customize what your widget looks like when it's loading.
-                    if (!snapshot.hasData) {
-                      return Center(
-                        child: SizedBox(
-                          width: 50.0,
-                          height: 50.0,
-                          child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              FlutterFlowTheme.of(context).primary,
-                            ),
-                          ),
-                        ),
-                      );
-                    }
-                    final imageGetMascotasResponse = snapshot.data!;
-
-                    return ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: Image.network(
-                        getJsonField(
-                          imageGetMascotasResponse.jsonBody,
-                          r'''$.message''',
-                        ).toString(),
-                        width: 401.1,
-                        height: 200.0,
-                        fit: BoxFit.fitWidth,
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Opacity(
+                      opacity: 0.0,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [],
                       ),
-                    );
-                  },
+                    ),
+                    Text(
+                      'Tu compañero peludo está en buenas manos 🐶❤️',
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Inter',
+                            letterSpacing: 0.0,
+                          ),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(
+                      valueOrDefault<double>(
+                        () {
+                          if (MediaQuery.sizeOf(context).width <
+                              kBreakpointSmall) {
+                            return 20.0;
+                          } else if (MediaQuery.sizeOf(context).width <
+                              kBreakpointMedium) {
+                            return 30.0;
+                          } else if (MediaQuery.sizeOf(context).width <
+                              kBreakpointLarge) {
+                            return 40.0;
+                          } else {
+                            return 20.0;
+                          }
+                        }(),
+                        20.0,
+                      ),
+                      valueOrDefault<double>(
+                        () {
+                          if (MediaQuery.sizeOf(context).width <
+                              kBreakpointSmall) {
+                            return 10.0;
+                          } else if (MediaQuery.sizeOf(context).width <
+                              kBreakpointMedium) {
+                            return 20.0;
+                          } else if (MediaQuery.sizeOf(context).width <
+                              kBreakpointLarge) {
+                            return 30.0;
+                          } else {
+                            return 10.0;
+                          }
+                        }(),
+                        10.0,
+                      ),
+                      valueOrDefault<double>(
+                        () {
+                          if (MediaQuery.sizeOf(context).width <
+                              kBreakpointSmall) {
+                            return 20.0;
+                          } else if (MediaQuery.sizeOf(context).width <
+                              kBreakpointMedium) {
+                            return 30.0;
+                          } else if (MediaQuery.sizeOf(context).width <
+                              kBreakpointLarge) {
+                            return 40.0;
+                          } else {
+                            return 20.0;
+                          }
+                        }(),
+                        20.0,
+                      ),
+                      valueOrDefault<double>(
+                        () {
+                          if (MediaQuery.sizeOf(context).width <
+                              kBreakpointSmall) {
+                            return 10.0;
+                          } else if (MediaQuery.sizeOf(context).width <
+                              kBreakpointMedium) {
+                            return 20.0;
+                          } else if (MediaQuery.sizeOf(context).width <
+                              kBreakpointLarge) {
+                            return 30.0;
+                          } else {
+                            return 10.0;
+                          }
+                        }(),
+                        10.0,
+                      )),
+                  child: AutoSizeText(
+                    'Siguiente cita:',
+                    textAlign: TextAlign.justify,
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Inter',
+                          letterSpacing: 0.0,
+                        ),
+                  ),
                 ),
                 Expanded(
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            valueOrDefault<double>(
-                              () {
-                                if (MediaQuery.sizeOf(context).width <
-                                    kBreakpointSmall) {
-                                  return 20.0;
-                                } else if (MediaQuery.sizeOf(context).width <
-                                    kBreakpointMedium) {
-                                  return 30.0;
-                                } else if (MediaQuery.sizeOf(context).width <
-                                    kBreakpointLarge) {
-                                  return 40.0;
-                                } else {
-                                  return 20.0;
-                                }
-                              }(),
-                              20.0,
-                            ),
-                            valueOrDefault<double>(
-                              () {
-                                if (MediaQuery.sizeOf(context).width <
-                                    kBreakpointSmall) {
-                                  return 10.0;
-                                } else if (MediaQuery.sizeOf(context).width <
-                                    kBreakpointMedium) {
-                                  return 20.0;
-                                } else if (MediaQuery.sizeOf(context).width <
-                                    kBreakpointLarge) {
-                                  return 30.0;
-                                } else {
-                                  return 10.0;
-                                }
-                              }(),
-                              10.0,
-                            ),
-                            valueOrDefault<double>(
-                              () {
-                                if (MediaQuery.sizeOf(context).width <
-                                    kBreakpointSmall) {
-                                  return 20.0;
-                                } else if (MediaQuery.sizeOf(context).width <
-                                    kBreakpointMedium) {
-                                  return 30.0;
-                                } else if (MediaQuery.sizeOf(context).width <
-                                    kBreakpointLarge) {
-                                  return 40.0;
-                                } else {
-                                  return 20.0;
-                                }
-                              }(),
-                              20.0,
-                            ),
-                            valueOrDefault<double>(
-                              () {
-                                if (MediaQuery.sizeOf(context).width <
-                                    kBreakpointSmall) {
-                                  return 10.0;
-                                } else if (MediaQuery.sizeOf(context).width <
-                                    kBreakpointMedium) {
-                                  return 20.0;
-                                } else if (MediaQuery.sizeOf(context).width <
-                                    kBreakpointLarge) {
-                                  return 30.0;
-                                } else {
-                                  return 10.0;
-                                }
-                              }(),
-                              10.0,
-                            )),
-                        child: AutoSizeText(
-                          'Siguiente cita:',
-                          textAlign: TextAlign.justify,
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Inter',
-                                    letterSpacing: 0.0,
-                                  ),
-                        ),
-                      ),
                       Container(
                         width: 315.3,
                         height: 100.0,
@@ -353,7 +338,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               return AutoSizeText(
                                 valueOrDefault<String>(
                                   textCitasRecord?.fecha?.toString(),
-                                  'No hay citas',
+                                  'No hay citas, todo bien por ahora!',
                                 ),
                                 textAlign: TextAlign.justify,
                                 style: FlutterFlowTheme.of(context)
@@ -369,11 +354,48 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           ),
                         ),
                       ),
+                      StyledDivider(
+                        thickness: 3.0,
+                        indent: 50.0,
+                        endIndent: 50.0,
+                        color: FlutterFlowTheme.of(context).primaryText,
+                        lineStyle: DividerLineStyle.dotted,
+                      ),
                       FFButtonWidget(
                         onPressed: () async {
                           context.pushNamed(ListaCitasWidget.routeName);
                         },
-                        text: 'Ir a citas',
+                        text: 'Administrar citas',
+                        options: FFButtonOptions(
+                          height: 40.0,
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              16.0, 0.0, 16.0, 0.0),
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          color: FlutterFlowTheme.of(context).primary,
+                          textStyle: FlutterFlowTheme.of(context)
+                              .titleSmall
+                              .override(
+                                fontFamily: 'Inter Tight',
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                letterSpacing: 0.0,
+                              ),
+                          elevation: 0.0,
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                      Opacity(
+                        opacity: 0.0,
+                        child: Divider(
+                          thickness: 2.0,
+                          color: FlutterFlowTheme.of(context).alternate,
+                        ),
+                      ),
+                      FFButtonWidget(
+                        onPressed: () async {
+                          context.pushNamed(ListaCitasWidget.routeName);
+                        },
+                        text: 'Ver masctoas\n',
                         options: FFButtonOptions(
                           height: 40.0,
                           padding: EdgeInsetsDirectional.fromSTEB(
@@ -470,13 +492,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               10.0,
                             )),
                         child: AutoSizeText(
-                          'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. ',
-                          textAlign: TextAlign.justify,
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Inter',
-                                    letterSpacing: 0.0,
-                                  ),
+                          'Bienvenido a tu espacio personalizado para el cuidado de tus mascotas. Aquí podrás llevar un control completo de sus vacunas, citas médicas, tratamientos y recetas, todo en un solo lugar. Nuestro objetivo es facilitarte el seguimiento de la salud de tu compañero peludo con recordatorios automáticos, historial médico accesible y comunicación directa con tu veterinario de confianza.',
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.getFont(
+                            'Inter',
+                            color: FlutterFlowTheme.of(context).primaryText,
+                            fontWeight: FontWeight.normal,
+                            fontSize: 14.0,
+                          ),
                         ),
                       ),
                     ],

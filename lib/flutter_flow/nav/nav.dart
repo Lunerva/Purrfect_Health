@@ -123,7 +123,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: ModificarMascotaWidget.routeName,
           path: ModificarMascotaWidget.routePath,
-          builder: (context, params) => ModificarMascotaWidget(),
+          builder: (context, params) => ModificarMascotaWidget(
+            idMascota: params.getParam(
+              'idMascota',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['users', 'mascotas'],
+            ),
+          ),
         ),
         FFRoute(
           name: EditeUserDataWidget.routeName,
@@ -156,6 +163,65 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: CrearMascotasWidget.routePath,
           requireAuth: true,
           builder: (context, params) => CrearMascotasWidget(),
+        ),
+        FFRoute(
+          name: CrearCartillaWidget.routeName,
+          path: CrearCartillaWidget.routePath,
+          requireAuth: true,
+          builder: (context, params) => CrearCartillaWidget(
+            idMascoton: params.getParam(
+              'idMascoton',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['users', 'mascotas'],
+            ),
+          ),
+        ),
+        FFRoute(
+          name: CrearHistorialWidget.routeName,
+          path: CrearHistorialWidget.routePath,
+          requireAuth: true,
+          builder: (context, params) => CrearHistorialWidget(
+            idMascoton: params.getParam(
+              'idMascoton',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['users', 'mascotas'],
+            ),
+          ),
+        ),
+        FFRoute(
+          name: CrearCitasCopyWidget.routeName,
+          path: CrearCitasCopyWidget.routePath,
+          requireAuth: true,
+          builder: (context, params) => CrearCitasCopyWidget(),
+        ),
+        FFRoute(
+          name: EditarCitaWidget.routeName,
+          path: EditarCitaWidget.routePath,
+          asyncParams: {
+            'cita': getDoc(['users', 'Citas'], CitasRecord.fromSnapshot),
+          },
+          builder: (context, params) => EditarCitaWidget(
+            cita: params.getParam(
+              'cita',
+              ParamType.Document,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: EditCitWidget.routeName,
+          path: EditCitWidget.routePath,
+          requireAuth: true,
+          asyncParams: {
+            'cita': getDoc(['users', 'Citas'], CitasRecord.fromSnapshot),
+          },
+          builder: (context, params) => EditCitWidget(
+            cita: params.getParam(
+              'cita',
+              ParamType.Document,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

@@ -13,28 +13,28 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'crear_citas_model.dart';
-export 'crear_citas_model.dart';
+import 'crear_citas_copy_model.dart';
+export 'crear_citas_copy_model.dart';
 
-class CrearCitasWidget extends StatefulWidget {
-  const CrearCitasWidget({super.key});
+class CrearCitasCopyWidget extends StatefulWidget {
+  const CrearCitasCopyWidget({super.key});
 
-  static String routeName = 'CrearCitas';
-  static String routePath = '/crearCitas';
+  static String routeName = 'CrearCitasCopy';
+  static String routePath = '/crearCitasCopy';
 
   @override
-  State<CrearCitasWidget> createState() => _CrearCitasWidgetState();
+  State<CrearCitasCopyWidget> createState() => _CrearCitasCopyWidgetState();
 }
 
-class _CrearCitasWidgetState extends State<CrearCitasWidget> {
-  late CrearCitasModel _model;
+class _CrearCitasCopyWidgetState extends State<CrearCitasCopyWidget> {
+  late CrearCitasCopyModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => CrearCitasModel());
+    _model = createModel(context, () => CrearCitasCopyModel());
 
     _model.fechaTextController ??= TextEditingController();
     _model.fechaFocusNode ??= FocusNode();
