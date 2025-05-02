@@ -2,17 +2,17 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/index.dart';
-import 'crear_citas_widget.dart' show CrearCitasWidget;
+import 'edit_citas_widget.dart' show EditCitasWidget;
 import 'package:flutter/material.dart';
 
-class CrearCitasModel extends FlutterFlowModel<CrearCitasWidget> {
+class EditCitasModel extends FlutterFlowModel<EditCitasWidget> {
   ///  State fields for stateful widgets in this page.
 
   final formKey = GlobalKey<FormState>();
-  // State field(s) for fecha widget.
-  FocusNode? fechaFocusNode;
-  TextEditingController? fechaTextController;
-  String? Function(BuildContext, String?)? fechaTextControllerValidator;
+  // State field(s) for lugar widget.
+  FocusNode? lugarFocusNode;
+  TextEditingController? lugarTextController;
+  String? Function(BuildContext, String?)? lugarTextControllerValidator;
   // State field(s) for motivo widget.
   FocusNode? motivoFocusNode;
   TextEditingController? motivoTextController;
@@ -29,8 +29,8 @@ class CrearCitasModel extends FlutterFlowModel<CrearCitasWidget> {
 
   @override
   void dispose() {
-    fechaFocusNode?.dispose();
-    fechaTextController?.dispose();
+    lugarFocusNode?.dispose();
+    lugarTextController?.dispose();
 
     motivoFocusNode?.dispose();
     motivoTextController?.dispose();

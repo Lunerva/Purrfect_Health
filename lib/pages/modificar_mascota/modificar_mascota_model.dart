@@ -1,20 +1,8 @@
-import '/auth/firebase_auth/auth_util.dart';
-import '/backend/backend.dart';
-import '/flutter_flow/flutter_flow_drop_down.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import 'dart:ui';
-import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
 import 'modificar_mascota_widget.dart' show ModificarMascotaWidget;
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class ModificarMascotaModel extends FlutterFlowModel<ModificarMascotaWidget> {
   ///  State fields for stateful widgets in this page.
@@ -23,34 +11,12 @@ class ModificarMascotaModel extends FlutterFlowModel<ModificarMascotaWidget> {
   TabController? tabBarController;
   int get tabBarCurrentIndex =>
       tabBarController != null ? tabBarController!.index : 0;
+  int get tabBarPreviousIndex =>
+      tabBarController != null ? tabBarController!.previousIndex : 0;
 
   // State field(s) for DropDown widget.
-  String? dropDownValue1;
-  FormFieldController<String>? dropDownValueController1;
-  // State field(s) for tfNombre widget.
-  FocusNode? tfNombreFocusNode;
-  TextEditingController? tfNombreTextController;
-  String? Function(BuildContext, String?)? tfNombreTextControllerValidator;
-  // State field(s) for tfLote widget.
-  FocusNode? tfLoteFocusNode;
-  TextEditingController? tfLoteTextController;
-  String? Function(BuildContext, String?)? tfLoteTextControllerValidator;
-  // State field(s) for tfFechaAd widget.
-  FocusNode? tfFechaAdFocusNode;
-  TextEditingController? tfFechaAdTextController;
-  String? Function(BuildContext, String?)? tfFechaAdTextControllerValidator;
-  // State field(s) for tfSigVacuna widget.
-  FocusNode? tfSigVacunaFocusNode;
-  TextEditingController? tfSigVacunaTextController;
-  String? Function(BuildContext, String?)? tfSigVacunaTextControllerValidator;
-  // State field(s) for tfObservaciones widget.
-  FocusNode? tfObservacionesFocusNode;
-  TextEditingController? tfObservacionesTextController;
-  String? Function(BuildContext, String?)?
-      tfObservacionesTextControllerValidator;
-  // State field(s) for DropDown widget.
-  String? dropDownValue2;
-  FormFieldController<String>? dropDownValueController2;
+  String? dropDownValue;
+  FormFieldController<String>? dropDownValueController;
   // State field(s) for tfTipo widget.
   FocusNode? tfTipoFocusNode;
   TextEditingController? tfTipoTextController;
@@ -95,21 +61,6 @@ class ModificarMascotaModel extends FlutterFlowModel<ModificarMascotaWidget> {
   @override
   void dispose() {
     tabBarController?.dispose();
-    tfNombreFocusNode?.dispose();
-    tfNombreTextController?.dispose();
-
-    tfLoteFocusNode?.dispose();
-    tfLoteTextController?.dispose();
-
-    tfFechaAdFocusNode?.dispose();
-    tfFechaAdTextController?.dispose();
-
-    tfSigVacunaFocusNode?.dispose();
-    tfSigVacunaTextController?.dispose();
-
-    tfObservacionesFocusNode?.dispose();
-    tfObservacionesTextController?.dispose();
-
     tfTipoFocusNode?.dispose();
     tfTipoTextController?.dispose();
 

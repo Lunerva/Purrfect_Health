@@ -1,19 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import '/backend/backend.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
 import '/main.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/lat_lng.dart';
-import '/flutter_flow/place.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'serialization_util.dart';
 
 import '/index.dart';
 
@@ -123,6 +116,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: ModificarMascotaWidget.routeName,
           path: ModificarMascotaWidget.routePath,
+          requireAuth: true,
           builder: (context, params) => ModificarMascotaWidget(
             idMascota: params.getParam(
               'idMascota',
@@ -191,35 +185,15 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: CrearCitasCopyWidget.routeName,
-          path: CrearCitasCopyWidget.routePath,
+          name: EditCitasWidget.routeName,
+          path: EditCitasWidget.routePath,
           requireAuth: true,
-          builder: (context, params) => CrearCitasCopyWidget(),
-        ),
-        FFRoute(
-          name: EditarCitaWidget.routeName,
-          path: EditarCitaWidget.routePath,
-          asyncParams: {
-            'cita': getDoc(['users', 'Citas'], CitasRecord.fromSnapshot),
-          },
-          builder: (context, params) => EditarCitaWidget(
-            cita: params.getParam(
-              'cita',
-              ParamType.Document,
-            ),
-          ),
-        ),
-        FFRoute(
-          name: EditCitWidget.routeName,
-          path: EditCitWidget.routePath,
-          requireAuth: true,
-          asyncParams: {
-            'cita': getDoc(['users', 'Citas'], CitasRecord.fromSnapshot),
-          },
-          builder: (context, params) => EditCitWidget(
-            cita: params.getParam(
-              'cita',
-              ParamType.Document,
+          builder: (context, params) => EditCitasWidget(
+            idCita: params.getParam(
+              'idCita',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['users', 'Citas'],
             ),
           ),
         )
@@ -406,15 +380,11 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? Center(
-                  child: SizedBox(
-                    width: 50.0,
-                    height: 50.0,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        FlutterFlowTheme.of(context).primary,
-                      ),
-                    ),
+              ? Container(
+                  color: Colors.transparent,
+                  child: Image.asset(
+                    'assets/images/WhatsApp_Image_2025-02-12_at_10.21.50_(1).jpeg',
+                    fit: BoxFit.fitWidth,
                   ),
                 )
               : page;

@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -20,11 +19,6 @@ class CitasRecord extends FirestoreRecord {
   DateTime? _fecha;
   DateTime? get fecha => _fecha;
   bool hasFecha() => _fecha != null;
-
-  // "Hora" field.
-  int? _hora;
-  int get hora => _hora ?? 0;
-  bool hasHora() => _hora != null;
 
   // "Motivo" field.
   String? _motivo;
@@ -45,7 +39,6 @@ class CitasRecord extends FirestoreRecord {
 
   void _initializeFields() {
     _fecha = snapshotData['Fecha'] as DateTime?;
-    _hora = castToType<int>(snapshotData['Hora']);
     _motivo = snapshotData['Motivo'] as String?;
     _lugar = snapshotData['Lugar'] as String?;
     _mascotaID = snapshotData['MascotaID'] as DocumentReference?;
@@ -91,7 +84,6 @@ class CitasRecord extends FirestoreRecord {
 
 Map<String, dynamic> createCitasRecordData({
   DateTime? fecha,
-  int? hora,
   String? motivo,
   String? lugar,
   DocumentReference? mascotaID,
@@ -99,7 +91,6 @@ Map<String, dynamic> createCitasRecordData({
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'Fecha': fecha,
-      'Hora': hora,
       'Motivo': motivo,
       'Lugar': lugar,
       'MascotaID': mascotaID,
@@ -115,15 +106,14 @@ class CitasRecordDocumentEquality implements Equality<CitasRecord> {
   @override
   bool equals(CitasRecord? e1, CitasRecord? e2) {
     return e1?.fecha == e2?.fecha &&
-        e1?.hora == e2?.hora &&
         e1?.motivo == e2?.motivo &&
         e1?.lugar == e2?.lugar &&
         e1?.mascotaID == e2?.mascotaID;
   }
 
   @override
-  int hash(CitasRecord? e) => const ListEquality()
-      .hash([e?.fecha, e?.hora, e?.motivo, e?.lugar, e?.mascotaID]);
+  int hash(CitasRecord? e) =>
+      const ListEquality().hash([e?.fecha, e?.motivo, e?.lugar, e?.mascotaID]);
 
   @override
   bool isValidKey(Object? o) => o is CitasRecord;

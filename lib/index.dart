@@ -19,7 +19,4 @@ export '/crear/crear_cartilla/crear_cartilla_widget.dart'
     show CrearCartillaWidget;
 export '/crear/crear_historial/crear_historial_widget.dart'
     show CrearHistorialWidget;
-export '/crear/crear_citas_copy/crear_citas_copy_widget.dart'
-    show CrearCitasCopyWidget;
-export '/pages/editar_cita/editar_cita_widget.dart' show EditarCitaWidget;
-export '/pages/edit_cit/edit_cit_widget.dart' show EditCitWidget;
+export '/pages/edit_citas/edit_citas_widget.dart' show EditCitasWidget;

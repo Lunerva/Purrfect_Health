@@ -1,9 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import '/index.dart';
-import 'profile_edit_widget.dart' show ProfileEditWidget;
+import 'lista_widget.dart' show ListaWidget;
 import 'package:flutter/material.dart';
 
-class ProfileEditModel extends FlutterFlowModel<ProfileEditWidget> {
+class ListaModel extends FlutterFlowModel<ListaWidget> {
   @override
   void initState(BuildContext context) {}
 

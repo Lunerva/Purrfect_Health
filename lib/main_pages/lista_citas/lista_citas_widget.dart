@@ -3,16 +3,10 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import '/index.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'lista_citas_model.dart';
 export 'lista_citas_model.dart';
 
@@ -61,16 +55,19 @@ class _ListaCitasWidgetState extends State<ListaCitasWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-        floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            context.pushNamed(CrearCitasWidget.routeName);
-          },
-          backgroundColor: FlutterFlowTheme.of(context).primary,
-          elevation: 16.0,
-          child: Icon(
-            Icons.add_rounded,
-            color: FlutterFlowTheme.of(context).info,
-            size: 24.0,
+        floatingActionButton: Align(
+          alignment: AlignmentDirectional(1.0, 1.0),
+          child: FloatingActionButton(
+            onPressed: () async {
+              context.pushNamed(CrearCitasWidget.routeName);
+            },
+            backgroundColor: FlutterFlowTheme.of(context).primary,
+            elevation: 16.0,
+            child: Icon(
+              Icons.add_rounded,
+              color: FlutterFlowTheme.of(context).info,
+              size: 24.0,
+            ),
           ),
         ),
         appBar: AppBar(
@@ -79,10 +76,19 @@ class _ListaCitasWidgetState extends State<ListaCitasWidget> {
           title: Text(
             'Citas',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Inter Tight',
+                  font: GoogleFonts.interTight(
+                    fontWeight:
+                        FlutterFlowTheme.of(context).headlineMedium.fontWeight,
+                    fontStyle:
+                        FlutterFlowTheme.of(context).headlineMedium.fontStyle,
+                  ),
                   color: Colors.white,
                   fontSize: 22.0,
                   letterSpacing: 0.0,
+                  fontWeight:
+                      FlutterFlowTheme.of(context).headlineMedium.fontWeight,
+                  fontStyle:
+                      FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                 ),
           ),
           actions: [],
@@ -99,86 +105,128 @@ class _ListaCitasWidgetState extends State<ListaCitasWidget> {
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 0.0),
                   child: Text(
-                    'Citas recientes',
+                    'Citas recientes:',
                     style: FlutterFlowTheme.of(context).headlineMedium.override(
-                          fontFamily: 'Inter Tight',
+                          font: GoogleFonts.interTight(
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .headlineMedium
+                                .fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .headlineMedium
+                                .fontStyle,
+                          ),
                           letterSpacing: 0.0,
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .headlineMedium
+                              .fontWeight,
+                          fontStyle: FlutterFlowTheme.of(context)
+                              .headlineMedium
+                              .fontStyle,
                         ),
                   ),
                 ),
-                FFButtonWidget(
-                  onPressed: () async {
-                    final _datePickedDate = await showDatePicker(
-                      context: context,
-                      initialDate: getCurrentTimestamp,
-                      firstDate: DateTime(1900),
-                      lastDate: DateTime(2050),
-                      builder: (context, child) {
-                        return wrapInMaterialDatePickerTheme(
-                          context,
-                          child!,
-                          headerBackgroundColor:
-                              FlutterFlowTheme.of(context).primary,
-                          headerForegroundColor:
-                              FlutterFlowTheme.of(context).info,
-                          headerTextStyle: FlutterFlowTheme.of(context)
-                              .headlineLarge
-                              .override(
-                                fontFamily: 'Inter Tight',
-                                fontSize: 32.0,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.w600,
-                              ),
-                          pickerBackgroundColor:
-                              FlutterFlowTheme.of(context).secondaryBackground,
-                          pickerForegroundColor:
-                              FlutterFlowTheme.of(context).primaryText,
-                          selectedDateTimeBackgroundColor:
-                              FlutterFlowTheme.of(context).primary,
-                          selectedDateTimeForegroundColor:
-                              FlutterFlowTheme.of(context).info,
-                          actionButtonForegroundColor:
-                              FlutterFlowTheme.of(context).primaryText,
-                          iconSize: 24.0,
-                        );
-                      },
-                    );
+                Align(
+                  alignment: AlignmentDirectional(0.0, 0.0),
+                  child: FFButtonWidget(
+                    onPressed: () async {
+                      final _datePickedDate = await showDatePicker(
+                        context: context,
+                        initialDate: getCurrentTimestamp,
+                        firstDate: DateTime(1900),
+                        lastDate: DateTime(2050),
+                        builder: (context, child) {
+                          return wrapInMaterialDatePickerTheme(
+                            context,
+                            child!,
+                            headerBackgroundColor:
+                                FlutterFlowTheme.of(context).primary,
+                            headerForegroundColor:
+                                FlutterFlowTheme.of(context).info,
+                            headerTextStyle: FlutterFlowTheme.of(context)
+                                .headlineLarge
+                                .override(
+                                  font: GoogleFonts.interTight(
+                                    fontWeight: FontWeight.w600,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .headlineLarge
+                                        .fontStyle,
+                                  ),
+                                  fontSize: 32.0,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w600,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .headlineLarge
+                                      .fontStyle,
+                                ),
+                            pickerBackgroundColor: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            pickerForegroundColor:
+                                FlutterFlowTheme.of(context).primaryText,
+                            selectedDateTimeBackgroundColor:
+                                FlutterFlowTheme.of(context).primary,
+                            selectedDateTimeForegroundColor:
+                                FlutterFlowTheme.of(context).info,
+                            actionButtonForegroundColor:
+                                FlutterFlowTheme.of(context).primaryText,
+                            iconSize: 24.0,
+                          );
+                        },
+                      );
 
-                    if (_datePickedDate != null) {
-                      safeSetState(() {
-                        _model.datePicked = DateTime(
-                          _datePickedDate.year,
-                          _datePickedDate.month,
-                          _datePickedDate.day,
-                        );
-                      });
-                    } else if (_model.datePicked != null) {
-                      safeSetState(() {
-                        _model.datePicked = getCurrentTimestamp;
-                      });
-                    }
-                    await queryCitasRecordOnce(
-                      queryBuilder: (citasRecord) => citasRecord.where(
-                        'Fecha',
-                        isEqualTo: _model.datePicked,
-                      ),
-                    );
-                  },
-                  text: dateTimeFormat("M/d H:mm", _model.datePicked),
-                  options: FFButtonOptions(
-                    height: 40.0,
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                    iconPadding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    color: FlutterFlowTheme.of(context).primary,
-                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          fontFamily: 'Inter Tight',
-                          color: Colors.white,
-                          letterSpacing: 0.0,
+                      if (_datePickedDate != null) {
+                        safeSetState(() {
+                          _model.datePicked = DateTime(
+                            _datePickedDate.year,
+                            _datePickedDate.month,
+                            _datePickedDate.day,
+                          );
+                        });
+                      } else if (_model.datePicked != null) {
+                        safeSetState(() {
+                          _model.datePicked = getCurrentTimestamp;
+                        });
+                      }
+                      await queryCitasRecordOnce(
+                        queryBuilder: (citasRecord) => citasRecord.where(
+                          'Fecha',
+                          isEqualTo: _model.datePicked,
                         ),
-                    elevation: 0.0,
-                    borderRadius: BorderRadius.circular(8.0),
+                      );
+                    },
+                    text: dateTimeFormat(
+                      "M/d H:mm",
+                      _model.datePicked,
+                      locale: FFLocalizations.of(context).languageCode,
+                    ),
+                    options: FFButtonOptions(
+                      height: 40.0,
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                      iconPadding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: FlutterFlowTheme.of(context).primary,
+                      textStyle:
+                          FlutterFlowTheme.of(context).titleSmall.override(
+                                font: GoogleFonts.interTight(
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontStyle,
+                                ),
+                                color: Colors.white,
+                                letterSpacing: 0.0,
+                                fontWeight: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .fontStyle,
+                              ),
+                      elevation: 0.0,
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
                   ),
                 ),
                 Padding(
@@ -220,16 +268,13 @@ class _ListaCitasWidgetState extends State<ListaCitasWidget> {
                               highlightColor: Colors.transparent,
                               onDoubleTap: () async {
                                 context.pushNamed(
-                                  EditCitWidget.routeName,
+                                  EditCitasWidget.routeName,
                                   queryParameters: {
-                                    'cita': serializeParam(
-                                      columnCitasRecord,
-                                      ParamType.Document,
+                                    'idCita': serializeParam(
+                                      columnCitasRecord.reference,
+                                      ParamType.DocumentReference,
                                     ),
                                   }.withoutNulls,
-                                  extra: <String, dynamic>{
-                                    'cita': columnCitasRecord,
-                                  },
                                 );
                               },
                               child: Container(
@@ -265,49 +310,124 @@ class _ListaCitasWidgetState extends State<ListaCitasWidget> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            RichText(
-                                              textScaler: MediaQuery.of(context)
-                                                  .textScaler,
-                                              text: TextSpan(
-                                                children: [
-                                                  TextSpan(
-                                                    text: 'Cita: ',
-                                                    style: TextStyle(),
-                                                  ),
-                                                  TextSpan(
-                                                    text: columnCitasRecord
-                                                        .motivo,
-                                                    style: TextStyle(
-                                                      color:
+                                            FutureBuilder<MascotasRecord>(
+                                              future: MascotasRecord
+                                                  .getDocumentOnce(
+                                                      columnCitasRecord
+                                                          .mascotaID!),
+                                              builder: (context, snapshot) {
+                                                // Customize what your widget looks like when it's loading.
+                                                if (!snapshot.hasData) {
+                                                  return Center(
+                                                    child: SizedBox(
+                                                      width: 50.0,
+                                                      height: 50.0,
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        valueColor:
+                                                            AlwaysStoppedAnimation<
+                                                                Color>(
                                                           FlutterFlowTheme.of(
                                                                   context)
                                                               .primary,
-                                                      fontWeight:
-                                                          FontWeight.bold,
+                                                        ),
+                                                      ),
                                                     ),
-                                                  )
-                                                ],
-                                                style:
-                                                    FlutterFlowTheme.of(context)
+                                                  );
+                                                }
+
+                                                final richTextMascotasRecord =
+                                                    snapshot.data!;
+
+                                                return RichText(
+                                                  textScaler:
+                                                      MediaQuery.of(context)
+                                                          .textScaler,
+                                                  text: TextSpan(
+                                                    children: [
+                                                      TextSpan(
+                                                        text: 'Cita: ',
+                                                        style: TextStyle(),
+                                                      ),
+                                                      TextSpan(
+                                                        text:
+                                                            richTextMascotasRecord
+                                                                .nombre,
+                                                        style: TextStyle(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      )
+                                                    ],
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .bodyLarge
                                                         .override(
-                                                          fontFamily: 'Inter',
+                                                          font:
+                                                              GoogleFonts.inter(
+                                                            fontWeight:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyLarge
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyLarge
+                                                                    .fontStyle,
+                                                          ),
                                                           letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyLarge
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyLarge
+                                                                  .fontStyle,
                                                         ),
-                                              ),
+                                                  ),
+                                                );
+                                              },
                                             ),
                                             Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 4.0, 0.0, 0.0),
                                               child: Text(
-                                                dateTimeFormat("d/M/y",
-                                                    columnCitasRecord.fecha!),
+                                                columnCitasRecord.motivo,
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .labelMedium
                                                         .override(
-                                                          fontFamily: 'Inter',
+                                                          font:
+                                                              GoogleFonts.inter(
+                                                            fontWeight:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontStyle,
+                                                          ),
                                                           letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontStyle,
                                                         ),
                                               ),
                                             ),
@@ -342,13 +462,34 @@ class _ListaCitasWidgetState extends State<ListaCitasWidget> {
                                                                 7.0, 0.0),
                                                     child: Text(
                                                       columnCitasRecord.lugar,
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .labelMedium
-                                                          .override(
-                                                            fontFamily: 'Inter',
-                                                            letterSpacing: 0.0,
-                                                          ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelMedium
+                                                              .override(
+                                                                font:
+                                                                    GoogleFonts
+                                                                        .inter(
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .fontStyle,
+                                                                ),
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontWeight,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontStyle,
+                                                              ),
                                                     ),
                                                   ),
                                                 ),
@@ -367,16 +508,42 @@ class _ListaCitasWidgetState extends State<ListaCitasWidget> {
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 12.0),
                                             child: Text(
-                                              columnCitasRecord.hora.toString(),
+                                              valueOrDefault<String>(
+                                                columnCitasRecord.fecha
+                                                    ?.toString(),
+                                                '-',
+                                              ),
                                               textAlign: TextAlign.end,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .headlineSmall
-                                                      .override(
-                                                        fontFamily:
-                                                            'Inter Tight',
-                                                        letterSpacing: 0.0,
-                                                      ),
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .headlineSmall
+                                                  .override(
+                                                    font:
+                                                        GoogleFonts.interTight(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .headlineSmall
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .headlineSmall
+                                                              .fontStyle,
+                                                    ),
+                                                    fontSize: 12.0,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .headlineSmall
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .headlineSmall
+                                                            .fontStyle,
+                                                  ),
                                             ),
                                           ),
                                         ],

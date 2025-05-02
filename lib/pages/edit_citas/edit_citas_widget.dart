@@ -11,32 +11,37 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'crear_citas_model.dart';
-export 'crear_citas_model.dart';
+import 'edit_citas_model.dart';
+export 'edit_citas_model.dart';
 
-class CrearCitasWidget extends StatefulWidget {
-  const CrearCitasWidget({super.key});
+class EditCitasWidget extends StatefulWidget {
+  const EditCitasWidget({
+    super.key,
+    required this.idCita,
+  });
 
-  static String routeName = 'CrearCitas';
-  static String routePath = '/crearCitas';
+  final DocumentReference? idCita;
+
+  static String routeName = 'EditCitas';
+  static String routePath = '/editCitas';
 
   @override
-  State<CrearCitasWidget> createState() => _CrearCitasWidgetState();
+  State<EditCitasWidget> createState() => _EditCitasWidgetState();
 }
 
-class _CrearCitasWidgetState extends State<CrearCitasWidget> {
-  late CrearCitasModel _model;
+class _EditCitasWidgetState extends State<EditCitasWidget> {
+  late EditCitasModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => CrearCitasModel());
+    _model = createModel(context, () => EditCitasModel());
 
-    _model.fechaTextController ??= TextEditingController();
-    _model.fechaFocusNode ??= FocusNode();
-    _model.fechaFocusNode!.addListener(() => safeSetState(() {}));
+    _model.lugarTextController ??= TextEditingController();
+    _model.lugarFocusNode ??= FocusNode();
+    _model.lugarFocusNode!.addListener(() => safeSetState(() {}));
     _model.motivoTextController ??= TextEditingController();
     _model.motivoFocusNode ??= FocusNode();
     _model.motivoFocusNode!.addListener(() => safeSetState(() {}));
@@ -78,7 +83,7 @@ class _CrearCitasWidgetState extends State<CrearCitasWidget> {
             },
           ),
           title: Text(
-            'Registrar cita',
+            'Modificar cita',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   font: GoogleFonts.interTight(
                     fontWeight:
@@ -115,8 +120,8 @@ class _CrearCitasWidgetState extends State<CrearCitasWidget> {
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 10.0),
                       child: TextFormField(
-                        controller: _model.fechaTextController,
-                        focusNode: _model.fechaFocusNode,
+                        controller: _model.lugarTextController,
+                        focusNode: _model.lugarFocusNode,
                         autofocus: true,
                         textCapitalization: TextCapitalization.words,
                         obscureText: false,
@@ -207,7 +212,7 @@ class _CrearCitasWidgetState extends State<CrearCitasWidget> {
                             borderRadius: BorderRadius.circular(12.0),
                           ),
                           filled: true,
-                          fillColor: (_model.fechaFocusNode?.hasFocus ?? false)
+                          fillColor: (_model.lugarFocusNode?.hasFocus ?? false)
                               ? FlutterFlowTheme.of(context).accent1
                               : FlutterFlowTheme.of(context)
                                   .secondaryBackground,
@@ -232,7 +237,7 @@ class _CrearCitasWidgetState extends State<CrearCitasWidget> {
                                   .fontStyle,
                             ),
                         cursorColor: FlutterFlowTheme.of(context).primary,
-                        validator: _model.fechaTextControllerValidator
+                        validator: _model.lugarTextControllerValidator
                             .asValidator(context),
                         inputFormatters: [
                           if (!isAndroid && !isiOS)
@@ -617,11 +622,10 @@ class _CrearCitasWidgetState extends State<CrearCitasWidget> {
                             singleRecord: true,
                           ).then((s) => s.firstOrNull);
 
-                          await CitasRecord.createDoc(currentUserReference!)
-                              .set(createCitasRecordData(
+                          await widget.idCita!.update(createCitasRecordData(
                             fecha: _model.datePicked,
                             motivo: _model.motivoTextController.text,
-                            lugar: _model.fechaTextController.text,
+                            lugar: _model.lugarTextController.text,
                             mascotaID: _model.refMascotaa?.reference,
                           ));
 
@@ -637,7 +641,7 @@ class _CrearCitasWidgetState extends State<CrearCitasWidget> {
 
                           safeSetState(() {});
                         },
-                        text: 'Registrar cita',
+                        text: 'Modificar cita',
                         options: FFButtonOptions(
                           width: double.infinity,
                           height: 48.0,

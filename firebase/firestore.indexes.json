@@ -2,16 +2,6 @@
   "indexes": [],
   "fieldOverrides": [
     {
-      "collectionGroup": "Vacunas",
-      "fieldPath": "MascotaID",
-      "indexes": [
-        {
-          "order": "ASCENDING",
-          "queryScope": "COLLECTION_GROUP"
-        }
-      ]
-    },
-    {
       "collectionGroup": "historialMedico",
       "fieldPath": "MascotaID",
       "indexes": [
