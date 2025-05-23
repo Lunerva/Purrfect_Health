@@ -33,6 +33,46 @@ class GetMascotasCall {
       ));
 }
 
+class NeviarCorreoCall {
+  static Future<ApiCallResponse> call({
+    String? nombre = '',
+    String? hora = '',
+    String? mensaje = '',
+    String? correo = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "service_id": "service_q76h4nl",
+  "template_id": "template_8b0290k",
+  "public_key": "ASFfy19YiDuf8bgRY",
+  "template_params": {
+    "title": "Cita registrada",
+    "name": "{{nombre}}",
+    "time": "{{hora}}",
+    "message": "{{mensaje}}",
+    "email": "{{correo}}"
+  }
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'neviarCorreo',
+      apiUrl: 'https://api.emailjs.com/api/v1.0/email/send',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;
@@ -78,4 +118,15 @@ String _serializeJson(dynamic jsonVar, [bool isList = false]) {
     }
     return isList ? '[]' : '{}';
   }
+}
+
+String? escapeStringForJson(String? input) {
+  if (input == null) {
+    return null;
+  }
+  return input
+      .replaceAll('\\', '\\\\')
+      .replaceAll('"', '\\"')
+      .replaceAll('\n', '\\n')
+      .replaceAll('\t', '\\t');
 }

@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'lista_widget.dart' show ListaWidget;
+import 'list_recordatorios_widget.dart' show ListRecordatoriosWidget;
 import 'package:flutter/material.dart';
 
-class ListaModel extends FlutterFlowModel<ListaWidget> {
+class ListRecordatoriosModel extends FlutterFlowModel<ListRecordatoriosWidget> {
   @override
   void initState(BuildContext context) {}
 

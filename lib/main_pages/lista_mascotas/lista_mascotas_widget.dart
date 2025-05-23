@@ -74,7 +74,7 @@ class _ListaMascotasWidgetState extends State<ListaMascotasWidget>
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
             floatingActionButton: Align(
-              alignment: AlignmentDirectional(1.0, 1.0),
+              alignment: AlignmentDirectional(1.0, 0.0),
               child: FloatingActionButton(
                 onPressed: () async {
                   context.pushNamed(CrearMascotasWidget.routeName);

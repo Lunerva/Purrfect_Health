@@ -8,10 +8,6 @@ class ListaCitasModel extends FlutterFlowModel<ListaCitasWidget> {
 
   DateTime? fechafil;
 
-  ///  State fields for stateful widgets in this page.
-
-  DateTime? datePicked;
-
   @override
   void initState(BuildContext context) {}
 

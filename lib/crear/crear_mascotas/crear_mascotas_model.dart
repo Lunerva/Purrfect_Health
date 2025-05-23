@@ -1,5 +1,4 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import '/index.dart';
 import 'crear_mascotas_widget.dart' show CrearMascotasWidget;
 import 'package:flutter/material.dart';
 
@@ -11,13 +10,24 @@ class CrearMascotasModel extends FlutterFlowModel<CrearMascotasWidget> {
   FocusNode? nombreFocusNode;
   TextEditingController? nombreTextController;
   String? Function(BuildContext, String?)? nombreTextControllerValidator;
+  String? _nombreTextControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Nombre is required';
+    }
+
+    if (!RegExp(kTextValidatorUsernameRegex).hasMatch(val)) {
+      return 'Must start with a letter and can only contain letters, digits and - or _.';
+    }
+    return null;
+  }
+
   // State field(s) for especie widget.
   FocusNode? especieFocusNode;
   TextEditingController? especieTextController;
   String? Function(BuildContext, String?)? especieTextControllerValidator;
   String? _especieTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
-      return 'Please enter an age for the patient.';
+      return 'Especie is required';
     }
 
     return null;
@@ -27,10 +37,26 @@ class CrearMascotasModel extends FlutterFlowModel<CrearMascotasWidget> {
   FocusNode? razaFocusNode;
   TextEditingController? razaTextController;
   String? Function(BuildContext, String?)? razaTextControllerValidator;
+  String? _razaTextControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Raza is required';
+    }
+
+    return null;
+  }
+
   // State field(s) for sexo widget.
   FocusNode? sexoFocusNode;
   TextEditingController? sexoTextController;
   String? Function(BuildContext, String?)? sexoTextControllerValidator;
+  String? _sexoTextControllerValidator(BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Sexo is required';
+    }
+
+    return null;
+  }
+
   DateTime? datePicked;
   bool isDataUploading = false;
   FFUploadedFile uploadedLocalFile =
@@ -38,7 +64,10 @@ class CrearMascotasModel extends FlutterFlowModel<CrearMascotasWidget> {
 
   @override
   void initState(BuildContext context) {
+    nombreTextControllerValidator = _nombreTextControllerValidator;
     especieTextControllerValidator = _especieTextControllerValidator;
+    razaTextControllerValidator = _razaTextControllerValidator;
+    sexoTextControllerValidator = _sexoTextControllerValidator;
   }
 
   @override

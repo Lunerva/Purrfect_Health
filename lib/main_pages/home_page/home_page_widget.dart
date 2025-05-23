@@ -160,7 +160,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               fit: BoxFit.cover,
                               errorBuilder: (context, error, stackTrace) =>
                                   Image.asset(
-                                'assets/images/error_image.jpeg',
+                                'assets/images/error_image.jpg',
                                 width: MediaQuery.sizeOf(context).width,
                                 height: 200.0,
                                 fit: BoxFit.cover,
@@ -295,128 +295,145 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             borderRadius: BorderRadius.circular(2.0),
                             shape: BoxShape.rectangle,
                           ),
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                valueOrDefault<double>(
-                                  () {
-                                    if (MediaQuery.sizeOf(context).width <
-                                        kBreakpointSmall) {
-                                      return 20.0;
-                                    } else if (MediaQuery.sizeOf(context)
-                                            .width <
-                                        kBreakpointMedium) {
-                                      return 30.0;
-                                    } else if (MediaQuery.sizeOf(context)
-                                            .width <
-                                        kBreakpointLarge) {
-                                      return 40.0;
-                                    } else {
-                                      return 20.0;
-                                    }
-                                  }(),
-                                  20.0,
+                          child: Align(
+                            alignment: AlignmentDirectional(0.0, 0.0),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  valueOrDefault<double>(
+                                    () {
+                                      if (MediaQuery.sizeOf(context).width <
+                                          kBreakpointSmall) {
+                                        return 20.0;
+                                      } else if (MediaQuery.sizeOf(context)
+                                              .width <
+                                          kBreakpointMedium) {
+                                        return 30.0;
+                                      } else if (MediaQuery.sizeOf(context)
+                                              .width <
+                                          kBreakpointLarge) {
+                                        return 40.0;
+                                      } else {
+                                        return 20.0;
+                                      }
+                                    }(),
+                                    20.0,
+                                  ),
+                                  valueOrDefault<double>(
+                                    () {
+                                      if (MediaQuery.sizeOf(context).width <
+                                          kBreakpointSmall) {
+                                        return 10.0;
+                                      } else if (MediaQuery.sizeOf(context)
+                                              .width <
+                                          kBreakpointMedium) {
+                                        return 20.0;
+                                      } else if (MediaQuery.sizeOf(context)
+                                              .width <
+                                          kBreakpointLarge) {
+                                        return 30.0;
+                                      } else {
+                                        return 10.0;
+                                      }
+                                    }(),
+                                    10.0,
+                                  ),
+                                  valueOrDefault<double>(
+                                    () {
+                                      if (MediaQuery.sizeOf(context).width <
+                                          kBreakpointSmall) {
+                                        return 20.0;
+                                      } else if (MediaQuery.sizeOf(context)
+                                              .width <
+                                          kBreakpointMedium) {
+                                        return 30.0;
+                                      } else if (MediaQuery.sizeOf(context)
+                                              .width <
+                                          kBreakpointLarge) {
+                                        return 40.0;
+                                      } else {
+                                        return 20.0;
+                                      }
+                                    }(),
+                                    20.0,
+                                  ),
+                                  valueOrDefault<double>(
+                                    () {
+                                      if (MediaQuery.sizeOf(context).width <
+                                          kBreakpointSmall) {
+                                        return 10.0;
+                                      } else if (MediaQuery.sizeOf(context)
+                                              .width <
+                                          kBreakpointMedium) {
+                                        return 20.0;
+                                      } else if (MediaQuery.sizeOf(context)
+                                              .width <
+                                          kBreakpointLarge) {
+                                        return 30.0;
+                                      } else {
+                                        return 10.0;
+                                      }
+                                    }(),
+                                    10.0,
+                                  )),
+                              child: StreamBuilder<List<CitasRecord>>(
+                                stream: queryCitasRecord(
+                                  parent: currentUserReference,
+                                  queryBuilder: (citasRecord) =>
+                                      citasRecord.orderBy('Fecha'),
+                                  singleRecord: true,
                                 ),
-                                valueOrDefault<double>(
-                                  () {
-                                    if (MediaQuery.sizeOf(context).width <
-                                        kBreakpointSmall) {
-                                      return 10.0;
-                                    } else if (MediaQuery.sizeOf(context)
-                                            .width <
-                                        kBreakpointMedium) {
-                                      return 20.0;
-                                    } else if (MediaQuery.sizeOf(context)
-                                            .width <
-                                        kBreakpointLarge) {
-                                      return 30.0;
-                                    } else {
-                                      return 10.0;
-                                    }
-                                  }(),
-                                  10.0,
-                                ),
-                                valueOrDefault<double>(
-                                  () {
-                                    if (MediaQuery.sizeOf(context).width <
-                                        kBreakpointSmall) {
-                                      return 20.0;
-                                    } else if (MediaQuery.sizeOf(context)
-                                            .width <
-                                        kBreakpointMedium) {
-                                      return 30.0;
-                                    } else if (MediaQuery.sizeOf(context)
-                                            .width <
-                                        kBreakpointLarge) {
-                                      return 40.0;
-                                    } else {
-                                      return 20.0;
-                                    }
-                                  }(),
-                                  20.0,
-                                ),
-                                valueOrDefault<double>(
-                                  () {
-                                    if (MediaQuery.sizeOf(context).width <
-                                        kBreakpointSmall) {
-                                      return 10.0;
-                                    } else if (MediaQuery.sizeOf(context)
-                                            .width <
-                                        kBreakpointMedium) {
-                                      return 20.0;
-                                    } else if (MediaQuery.sizeOf(context)
-                                            .width <
-                                        kBreakpointLarge) {
-                                      return 30.0;
-                                    } else {
-                                      return 10.0;
-                                    }
-                                  }(),
-                                  10.0,
-                                )),
-                            child: StreamBuilder<List<CitasRecord>>(
-                              stream: queryCitasRecord(
-                                parent: currentUserReference,
-                                queryBuilder: (citasRecord) =>
-                                    citasRecord.orderBy('Fecha'),
-                                singleRecord: true,
-                              ),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 50.0,
-                                      height: 50.0,
-                                      child: CircularProgressIndicator(
-                                        valueColor:
-                                            AlwaysStoppedAnimation<Color>(
-                                          FlutterFlowTheme.of(context).primary,
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50.0,
+                                        height: 50.0,
+                                        child: CircularProgressIndicator(
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                            FlutterFlowTheme.of(context)
+                                                .primary,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  );
-                                }
-                                List<CitasRecord> textCitasRecordList =
-                                    snapshot.data!;
-                                // Return an empty Container when the item does not exist.
-                                if (snapshot.data!.isEmpty) {
-                                  return Container();
-                                }
-                                final textCitasRecord =
-                                    textCitasRecordList.isNotEmpty
-                                        ? textCitasRecordList.first
-                                        : null;
+                                    );
+                                  }
+                                  List<CitasRecord> textCitasRecordList =
+                                      snapshot.data!;
+                                  // Return an empty Container when the item does not exist.
+                                  if (snapshot.data!.isEmpty) {
+                                    return Container();
+                                  }
+                                  final textCitasRecord =
+                                      textCitasRecordList.isNotEmpty
+                                          ? textCitasRecordList.first
+                                          : null;
 
-                                return AutoSizeText(
-                                  valueOrDefault<String>(
-                                    textCitasRecord?.fecha?.toString(),
-                                    '-',
-                                  ),
-                                  textAlign: TextAlign.justify,
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        font: GoogleFonts.inter(
+                                  return AutoSizeText(
+                                    valueOrDefault<String>(
+                                      textCitasRecord != null
+                                          ? 'Cita registrada para ${textCitasRecord.fecha?.toString()} en ${textCitasRecord.lugar}'
+                                          : 'No hay citas',
+                                      '-',
+                                    ),
+                                    textAlign: TextAlign.justify,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          font: GoogleFonts.inter(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                          ),
+                                          color: FlutterFlowTheme.of(context)
+                                              .accent4,
+                                          letterSpacing: 0.0,
                                           fontWeight:
                                               FlutterFlowTheme.of(context)
                                                   .bodyMedium
@@ -426,18 +443,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   .bodyMedium
                                                   .fontStyle,
                                         ),
-                                        color: FlutterFlowTheme.of(context)
-                                            .accent4,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
-                                      ),
-                                );
-                              },
+                                  );
+                                },
+                              ),
                             ),
                           ),
                         ),

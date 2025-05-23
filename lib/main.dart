@@ -164,7 +164,7 @@ class _NavBarPageState extends State<NavBarPage> {
       'ListaCitas': ListaCitasWidget(),
       'HomePage': HomePageWidget(),
       'ProfileEdit': ProfileEditWidget(),
-      'ListNotifications': ListNotificationsWidget(),
+      'ListRecordatorios': ListRecordatoriosWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 

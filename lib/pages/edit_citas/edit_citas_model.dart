@@ -23,6 +23,8 @@ class EditCitasModel extends FlutterFlowModel<EditCitasWidget> {
   FormFieldController<String>? dropDownValueController;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   MascotasRecord? refMascotaa;
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  List<RecordatoriosRecord>? listaRecordatorios;
 
   @override
   void initState(BuildContext context) {}

@@ -108,7 +108,7 @@ class _EditCitasWidgetState extends State<EditCitasWidget> {
           top: true,
           child: Form(
             key: _model.formKey,
-            autovalidateMode: AutovalidateMode.disabled,
+            autovalidateMode: AutovalidateMode.always,
             child: Padding(
               padding: EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
               child: SingleChildScrollView(
@@ -628,16 +628,7 @@ class _EditCitasWidgetState extends State<EditCitasWidget> {
                             lugar: _model.lugarTextController.text,
                             mascotaID: _model.refMascotaa?.reference,
                           ));
-
-                          context.pushNamed(
-                            ListaCitasWidget.routeName,
-                            extra: <String, dynamic>{
-                              kTransitionInfoKey: TransitionInfo(
-                                hasTransition: true,
-                                transitionType: PageTransitionType.fade,
-                              ),
-                            },
-                          );
+                          context.safePop();
 
                           safeSetState(() {});
                         },
@@ -650,6 +641,103 @@ class _EditCitasWidgetState extends State<EditCitasWidget> {
                           iconPadding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
                           color: Color(0xC500FFB7),
+                          textStyle:
+                              FlutterFlowTheme.of(context).titleSmall.override(
+                            font: GoogleFonts.interTight(
+                              fontWeight: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .fontWeight,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .fontStyle,
+                            ),
+                            color: Colors.white,
+                            fontSize: 20.0,
+                            letterSpacing: 0.0,
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .fontStyle,
+                            shadows: [
+                              Shadow(
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryText,
+                                offset: Offset(2.0, 2.0),
+                                blurRadius: 2.0,
+                              )
+                            ],
+                          ),
+                          elevation: 3.0,
+                          borderSide: BorderSide(
+                            color: Colors.transparent,
+                            width: 1.0,
+                          ),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(
+                          16.0, 12.0, 16.0, 30.0),
+                      child: FFButtonWidget(
+                        onPressed: () async {
+                          var confirmDialogResponse = await showDialog<bool>(
+                                context: context,
+                                builder: (alertDialogContext) {
+                                  return AlertDialog(
+                                    title: Text('Borrar cita'),
+                                    content: Text(
+                                        'Se borraran todos los datos de esta cita con sus recordatorios'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(
+                                            alertDialogContext, false),
+                                        child: Text('Cancelar'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(
+                                            alertDialogContext, true),
+                                        child: Text('Confirmar'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              ) ??
+                              false;
+                          if (confirmDialogResponse) {
+                            _model.listaRecordatorios =
+                                await queryRecordatoriosRecordOnce(
+                              parent: currentUserReference,
+                              queryBuilder: (recordatoriosRecord) =>
+                                  recordatoriosRecord.where(
+                                'CitaID',
+                                isEqualTo: widget.idCita,
+                              ),
+                            );
+                            for (int loop1Index = 0;
+                                loop1Index < _model.listaRecordatorios!.length;
+                                loop1Index++) {
+                              final currentLoop1Item =
+                                  _model.listaRecordatorios![loop1Index];
+                              await currentLoop1Item.reference.delete();
+                            }
+                            await widget.idCita!.delete();
+                          }
+                          context.safePop();
+
+                          safeSetState(() {});
+                        },
+                        text: 'Eliminar cita',
+                        options: FFButtonOptions(
+                          width: double.infinity,
+                          height: 48.0,
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              24.0, 0.0, 24.0, 0.0),
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          color: Color(0xC5FF1B00),
                           textStyle:
                               FlutterFlowTheme.of(context).titleSmall.override(
                             font: GoogleFonts.interTight(

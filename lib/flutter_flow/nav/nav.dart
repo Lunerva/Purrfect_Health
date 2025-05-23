@@ -98,12 +98,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => AuthenWidget(),
         ),
         FFRoute(
-          name: ListNotificationsWidget.routeName,
-          path: ListNotificationsWidget.routePath,
+          name: ListRecordatoriosWidget.routeName,
+          path: ListRecordatoriosWidget.routePath,
           requireAuth: true,
           builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'ListNotifications')
-              : ListNotificationsWidget(),
+              ? NavBarPage(initialPage: 'ListRecordatorios')
+              : ListRecordatoriosWidget(),
         ),
         FFRoute(
           name: ProfileEditWidget.routeName,
@@ -127,12 +127,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: EditeUserDataWidget.routeName,
-          path: EditeUserDataWidget.routePath,
-          requireAuth: true,
-          builder: (context, params) => EditeUserDataWidget(),
-        ),
-        FFRoute(
           name: CrearCitasWidget.routeName,
           path: CrearCitasWidget.routePath,
           requireAuth: true,
@@ -141,6 +135,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: ListaCitasWidget.routeName,
           path: ListaCitasWidget.routePath,
+          requireAuth: true,
           builder: (context, params) => params.isEmpty
               ? NavBarPage(initialPage: 'ListaCitas')
               : ListaCitasWidget(),
@@ -148,6 +143,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: ListaMascotasWidget.routeName,
           path: ListaMascotasWidget.routePath,
+          requireAuth: true,
           builder: (context, params) => params.isEmpty
               ? NavBarPage(initialPage: 'ListaMascotas')
               : ListaMascotasWidget(),
@@ -196,6 +192,38 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               collectionNamePath: ['users', 'Citas'],
             ),
           ),
+        ),
+        FFRoute(
+          name: VerCartillaWidget.routeName,
+          path: VerCartillaWidget.routePath,
+          requireAuth: true,
+          builder: (context, params) => VerCartillaWidget(
+            idMascotReceta: params.getParam(
+              'idMascotReceta',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['users', 'Vacunas'],
+            ),
+          ),
+        ),
+        FFRoute(
+          name: VerHistorialWidget.routeName,
+          path: VerHistorialWidget.routePath,
+          requireAuth: true,
+          builder: (context, params) => VerHistorialWidget(
+            idMascotHistorial: params.getParam(
+              'idMascotHistorial',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['users', 'historialMedico'],
+            ),
+          ),
+        ),
+        FFRoute(
+          name: EditUserWidget.routeName,
+          path: EditUserWidget.routePath,
+          requireAuth: true,
+          builder: (context, params) => EditUserWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -381,10 +409,10 @@ class FFRoute {
               : builder(context, ffParams);
           final child = appStateNotifier.loading
               ? Container(
-                  color: Colors.transparent,
+                  color: Color(0x00FFFFFF),
                   child: Image.asset(
-                    'assets/images/WhatsApp_Image_2025-02-12_at_10.21.50_(1).jpeg',
-                    fit: BoxFit.fitWidth,
+                    'assets/images/Logo-2.png',
+                    fit: BoxFit.contain,
                   ),
                 )
               : page;
